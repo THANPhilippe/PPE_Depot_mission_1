@@ -1,17 +1,25 @@
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html>
-    <head>
-        <meta charset="ISO-8859-1">
-        <title></title>
-    </head>
-    <body>
-        <?php
-        echo "troisième10 commit";
-        ?>
-    </body>
-</html>
+<?php
+require_once("include/fct.inc.php");
+require_once ("include/class.pdogsb.inc.php");
+include("vues/v_entete.php") ;
+session_start();
+$pdo = PdoGsb::getPdoGsb();
+$estConnecte = estConnecte();
+if(!isset($_REQUEST['uc']) || !$estConnecte){
+     $_REQUEST['uc'] = 'connexion';
+}	 
+$uc = $_REQUEST['uc'];
+switch($uc){
+	case 'connexion':{
+		include("controleurs/c_connexion.php");break;
+	}
+	case 'gererFrais' :{
+		include("controleurs/c_gererFrais.php");break;
+	}
+	case 'etatFrais' :{
+		include("controleurs/c_etatFrais.php");break; 
+	}
+}
+include("vues/v_pied.php") ;
+?>
+
