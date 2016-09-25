@@ -17,9 +17,9 @@
 
 class PdoGsb{   		
       	private static $serveur='mysql:host=localhost';
-      	private static $bdd='dbname=gsbV2';   		
-      	private static $user='root' ;    		
-      	private static $mdp='' ;	
+      	private static $bdd='dbname=pthan';   		
+      	private static $user='pthan' ;    		
+      	private static $mdp='Ti8eitho' ;	
 		private static $monPdo;
 		private static $monPdoGsb=null;
 /**
@@ -56,6 +56,21 @@ class PdoGsb{
 	public function getInfosVisiteur($login, $mdp){
 		$req = "select visiteur.id as id, visiteur.nom as nom, visiteur.prenom as prenom from visiteur 
 		where visiteur.login='$login' and visiteur.mdp='$mdp'";
+		$rs = PdoGsb::$monPdo->query($req);
+		$ligne = $rs->fetch();
+		return $ligne;
+	}
+        
+        /**
+ * Retourne les informations d'un admin
+ 
+ * @param $loginadmin 
+ * @param $mdpadmin
+ * @return l'id, le nom et le prénom sous la forme d'un tableau associatif 
+*/
+	public function getInfosAdmin($loginadmin, $mdpadmin){
+		$req = "select admin.id as id, admin.nom as nom, admin.prenom as prenom from admin 
+		where admin.login='$loginadmin' and admin.mdp='$mdpadmin'";
 		$rs = PdoGsb::$monPdo->query($req);
 		$ligne = $rs->fetch();
 		return $ligne;
@@ -229,12 +244,12 @@ class PdoGsb{
  * @param $date : la date du frais au format français jj//mm/aaaa
  * @param $montant : le montant
 */
-	public function creeNouveauFraisHorsForfait($idVisiteur,$mois,$libelle,$date,$montant){
-		$dateFr = dateFrancaisVersAnglais($date);
-		$req = "insert into lignefraishorsforfait 
-		values('','$idVisiteur','$mois','$libelle','$dateFr','$montant')";
-		PdoGsb::$monPdo->exec($req);
-	}
+        public function creeNouveauFraisHorsForfait($idVisiteur,$mois,$libelle,$date,$montant){
+            $dateFr = dateFrancaisVersAnglais($date);
+            $req = "insert into lignefraishorsforfait (idVisiteur,mois,libelle,date,montant)
+                values('$idVisiteur','$mois','$libelle','$dateFr','$montant')";
+                PdoGsb::$monPdo->exec($req);
+        }
 /**
  * Supprime le frais hors forfait dont l'id est passé en argument
  
