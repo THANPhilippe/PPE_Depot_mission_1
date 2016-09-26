@@ -18,8 +18,8 @@
 class PdoGsb{   		
       	private static $serveur='mysql:host=localhost';
       	private static $bdd='dbname=pthan';   		
-      	private static $user='pthan' ;    		
-      	private static $mdp='Ti8eitho' ;	
+      	private static $user='root' ;    		
+      	private static $mdp='' ;	
 		private static $monPdo;
 		private static $monPdoGsb=null;
 /**
@@ -69,8 +69,8 @@ class PdoGsb{
  * @return l'id, le nom et le prénom sous la forme d'un tableau associatif 
 */
 	public function getInfosComptable($logincomptable, $mdpcomptable){
-		$req = "select comptable.id as id, comptable.nom as nom, comptable.prenom as prenom from comptable 
-		where comptable.login='$logincomptable' and comptable.mdp='$mdpcomptable'";
+		$req = "select comptable.id as id, comptable.nom as nom, comptable.prenom as prenom from comptable  
+		where comptable.login='$logincomptable' and comptable.mdp='$mdpcomptable'"; // a optimiser
 		$rs = PdoGsb::$monPdo->query($req);
 		$ligne = $rs->fetch();
 		return $ligne;

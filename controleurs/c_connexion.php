@@ -12,7 +12,7 @@ switch($action){
 		$login = $_REQUEST['login'];
 		$mdp = $_REQUEST['mdp'];
 		$visiteur = $pdo->getInfosVisiteur($login,$mdp);
-                $comptable = $pdo->getInfosComptable($login,$mdp);
+                $comptable = $pdo->getInfosComptable($login,$mdp);//a optimiser
                 if (is_array($visiteur)){
 			$id = $visiteur['id'];
 			$nom =  $visiteur['nom'];
