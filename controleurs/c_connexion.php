@@ -14,6 +14,8 @@ switch($action){
 		$visiteur = $pdo->getInfosVisiteur($login,$mdp);
                 $comptable = $pdo->getInfosComptable($login,$mdp);//a optimiser
                 if (is_array($visiteur)){
+                        $_SESSION["visiteur"]=true;
+                        $_SESSION["comptable"]=false;
 			$id = $visiteur['id'];
 			$nom =  $visiteur['nom'];
 			$prenom = $visiteur['prenom'];
@@ -21,6 +23,8 @@ switch($action){
 			include("vues/v_sommaire.php");
 		}
                 elseif (is_array($comptable)) {
+                        $_SESSION["comptable"]=true;
+                        $_SESSION["visiteur"]=false;
                         $idcomptable = $comptable['id'];
 			$nomcomptable =  $comptable['nom'];
 			$prenomcomptable = $comptable['prenom'];

@@ -1,7 +1,13 @@
 ﻿ <div id="contenu">
       <h2>Mes fiches de frais</h2>
       <h3>Mois à sélectionner : </h3>
-      <form action="index.php?uc=etatFrais&action=voirEtatFrais" method="post">
+      <form action=<?php if($_SESSION["visiteur"]==true){
+                             echo "'index.php?uc=etatFrais&action=voirEtatFrais'"; 
+                             }
+                             else
+                             { 
+                                 echo "'index.php?uc=etatFrais&action=voirEtatFraisComptable'";       
+                             }?> method="post">
       <div class="corpsForm">
          
       <p>
@@ -9,6 +15,7 @@
         <label for="lstMois" accesskey="n">Mois : </label>
         <select id="lstMois" name="lstMois">
             <?php
+            
 			foreach ($lesMois as $unMois)
 			{
 			    $mois = $unMois['mois'];

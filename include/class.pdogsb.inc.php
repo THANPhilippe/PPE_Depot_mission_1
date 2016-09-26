@@ -99,6 +99,7 @@ class PdoGsb{
 		}
 		return $lesLignes; 
 	}
+        
 /**
  * Retourne le nombre de justificatif d'un visiteur pour un mois donné
  
@@ -130,6 +131,18 @@ class PdoGsb{
 		$lesLignes = $res->fetchAll();
 		return $lesLignes; 
 	}
+        
+        	public function getLesFraisForfaitComptable($mois){
+		$req = "select fraisforfait.id as idfrais, fraisforfait.libelle as libelle, 
+		lignefraisforfait.quantite as quantite from lignefraisforfait inner join fraisforfait 
+		on fraisforfait.id = lignefraisforfait.idfraisforfait
+		where lignefraisforfait.mois='$mois'
+		order by lignefraisforfait.idfraisforfait";	
+		$res = PdoGsb::$monPdo->query($req);
+		$lesLignes = $res->fetchAll();
+		return $lesLignes; 
+	}
+        
 /**
  * Retourne tous les id de la table FraisForfait
  
