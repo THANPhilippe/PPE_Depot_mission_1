@@ -64,13 +64,13 @@ class PdoGsb{
         /**
  * Retourne les informations d'un admin
  
- * @param $loginadmin 
- * @param $mdpadmin
+ * @param $logincomptable
+ * @param $mdpcomptable
  * @return l'id, le nom et le prénom sous la forme d'un tableau associatif 
 */
-	public function getInfosAdmin($loginadmin, $mdpadmin){
-		$req = "select admin.id as id, admin.nom as nom, admin.prenom as prenom from admin 
-		where admin.login='$loginadmin' and admin.mdp='$mdpadmin'";
+	public function getInfosComptable($logincomptable, $mdpcomptable){
+		$req = "select comptable.id as id, comptable.nom as nom, comptable.prenom as prenom from comptable 
+		where comptable.login='$logincomptable' and comptable.mdp='$mdpcomptable'";
 		$rs = PdoGsb::$monPdo->query($req);
 		$ligne = $rs->fetch();
 		return $ligne;
