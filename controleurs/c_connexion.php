@@ -12,7 +12,7 @@ switch($action){
 		$login = $_REQUEST['login'];
 		$mdp = $_REQUEST['mdp'];
 		$visiteur = $pdo->getInfosVisiteur($login,$mdp);
-                $admin = $pdo->getInfosAdmin($login,$mdp);
+                $comptable = $pdo->getInfosComptable($login,$mdp);
                 if (is_array($visiteur)){
 			$id = $visiteur['id'];
 			$nom =  $visiteur['nom'];
@@ -20,12 +20,12 @@ switch($action){
 			connecter($id,$nom,$prenom);
 			include("vues/v_sommaire.php");
 		}
-                elseif (is_array($admin)) {
-                        $idadmin = $admin['id'];
-			$nomadmin =  $admin['nom'];
-			$prenomadmin = $admin['prenom'];
-			connecter($idadmin,$nomadmin,$prenomadmin);
-			include("vues/v_admin.php");     
+                elseif (is_array($comptable)) {
+                        $idcomptable = $comptable['id'];
+			$nomcomptable =  $comptable['nom'];
+			$prenomcomptable = $comptable['prenom'];
+			connecter($idcomptable,$nomcomptable,$prenomcomptable);
+			include("vues/v_comptable.php");     
                 }
                 else{
 			ajouterErreur("Login ou mot de passe incorrect");
