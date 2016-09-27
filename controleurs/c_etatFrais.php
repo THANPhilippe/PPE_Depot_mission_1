@@ -19,8 +19,22 @@ switch($action){
 	}
         case 'selectionnerMoisComptable':{
 		$lesMois=$pdo->getToutLesMoisDisponibles();
-		$lesCles = array_keys( $lesMois );
-		$moisASelectionner = $lesCles[0];
+		$lesCles = array_keys( $lesMois ); //
+		$moisASelectionner = $lesCles[0]; //Pour metre le premier en selection de base
+		include("vues/v_listeMois.php");
+		break;
+	}
+        case 'selectionnerMoisFicheComptable':{
+            	$lesMois=$pdo->getToutLesMoisDisponibles();
+		$lesCles = array_keys( $lesMois ); //
+		$moisASelectionner = $lesCles[0]; //Pour metre le premier en selection de base
+      
+                //Deuxieme liste deroulante
+                $leMois = $_REQUEST['lstMois'];
+                echo ($leMois);
+		$lesFiches=$pdo->getToutLesFichesDisponibles($leMois);
+		$lesClesFiche = array_keys( $lesFiches );
+		$ficheASelectionner = $lesClesFiche[0];
 		include("vues/v_listeMois.php");
 		break;
 	}
@@ -43,26 +57,7 @@ switch($action){
 	}
         
         
-        	case 'voirEtatFrais_a_valide_Comptable':{
-		$leMois = $_REQUEST['lstMois']; 
-		$lesMois=$pdo->getToutLesMoisDisponibles();
-		$moisASelectionner = $leMois;
-                
-                $lesFraisForfait= $pdo->getLesFraisForfaitComptable($leMois);
-                $lesFraisForfaitASelectionner = $lesFraisForfait;
-		include("vues/v_listeMois.php");
-		
-                
-		$lesInfosFicheFrais = $pdo->getLesInfosFicheFraisComptable($leMois);
-		$numAnnee =substr( $leMois,0,4);
-		$numMois =substr( $leMois,4,2);
-		$libEtat = $lesInfosFicheFrais['libEtat'];
-		$montantValide = $lesInfosFicheFrais['montantValide'];
-		$nbJustificatifs = $lesInfosFicheFrais['nbJustificatifs'];
-		$dateModif =  $lesInfosFicheFrais['dateModif'];
-		$dateModif =  dateAnglaisVersFrancais($dateModif);
-		include("vues/v_etatFrais.php");
-	}
+        
       
 }
 ?>

@@ -6,7 +6,7 @@
                              }
                              else
                              { 
-                                 echo "'index.php?uc=etatFrais&action=voirEtatFraisComptable'";       
+                                 echo "'index.php?uc=etatFrais&action=selectionnerMoisFicheComptable'";       
                              }?> method="post">
       <div class="corpsForm">
          
@@ -46,3 +46,48 @@
       </div>
         
       </form>
+      
+      
+      
+      
+      <?php if($_SESSION["comptable"]==true){?>
+      <h3>Liste des fiche frais a valider par visiteur pour le mois : </h3>
+      <form action=<?php if($_SESSION["visiteur"]==true){
+                             echo "'index.php?uc=etatFrais&action=voirEtatFrais'"; 
+                             }
+                             else
+                             { 
+                                 echo "'index.php?uc=etatFrais&action=voirEtatFraisComptable'";       
+                             }?> method="post">
+      <div class="corpsForm">
+         
+      <p>
+	 
+        <label for="lstVisiteur" accesskey="n">Mois : </label>
+        <select id="lstVisiteur" name="lstVisiteur">
+            <?php
+            
+			foreach ($lesVisiteurs as $unVisiteur)
+			{
+			    $visiteur = $unVisiteur['visiteur'];
+				$nom =  $unVisiteur['nom'];
+				$prenom =  $unVisiteur['prenom'];
+				?>
+				<option value="<?php echo $visiteur ?>"><?php echo  $nom."/".$prenom ?> </option>
+				<?php 
+			}
+           
+		   ?>    
+            
+        </select>
+      </p>
+      </div>
+      <div class="piedForm">
+      <p>
+        <input id="ok" type="submit" value="Valider" size="20" />
+        <input id="annuler" type="reset" value="Effacer" size="20" />
+      </p> 
+      </div>
+        
+      </form>
+      <?php } ?>

@@ -132,16 +132,6 @@ class PdoGsb{
 		return $lesLignes; 
 	}
         
-        	public function getLesFraisForfaitComptable($mois){
-		$req = "select fraisforfait.id as idfrais, fraisforfait.libelle as libelle, 
-		lignefraisforfait.quantite as quantite from lignefraisforfait inner join fraisforfait 
-		on fraisforfait.id = lignefraisforfait.idfraisforfait
-		where lignefraisforfait.mois='$mois'
-		order by lignefraisforfait.idfraisforfait";	
-		$res = PdoGsb::$monPdo->query($req);
-		$lesLignes = $res->fetchAll();
-		return $lesLignes; 
-	}
         
 /**
  * Retourne tous les id de la table FraisForfait
@@ -317,6 +307,27 @@ class PdoGsb{
 			$laLigne = $res->fetch(); 		
 		}
 		return $lesMois;
+	}
+        
+        public function getToutLesFichesDisponibles($leMois){
+		$req = "select visiteur.id as visiteur, visiteur.nom as nom, visiteur.prenom as prenom from visiteur inner join fichefrais
+                        on fichefrais.idvisiteur = visiteur.id
+                        where fichefrais.mois='$leMois'";
+		$res = PdoGsb::$monPdo->query($req);
+		$lesVisiteurs =array();
+		$laLigne = $res->fetch();
+		while($laLigne != null)	{
+                        $visiteur = $LaLigne['visiteur'];
+			$nom = $laLigne['nom'];
+                        $prenom = $laLigne['prenom'];
+			$lesVisiteurs["$visiteur"]=array(
+                     "visiteur"=>"$visiteur",
+		     "nom"=>"$nom",
+                     "prenom"  => "$prenom"
+             );
+			$laLigne = $res->fetch(); 		
+		}
+		return $lesVisiteurs;
 	}
         
         
