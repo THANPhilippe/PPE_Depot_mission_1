@@ -310,14 +310,12 @@ class PdoGsb{
 	}
         
         public function getToutLesFichesDisponiblesComptable($leMois){
-		$req = "select visiteur.id as visiteur, visiteur.nom as nom, visiteur.prenom as prenom from visiteur join fichefrais
-                        on fichefrais.idVisiteur = visiteur.id
-                        where fichefrais.mois='$leMois'";
+		$req = "SELECT id as visiteur,nom as nom,prenom as prenom FROM visiteur JOIN fichefrais WHERE id = idVisiteur AND mois='$leMois'";
 		$res = PdoGsb::$monPdo->query($req);
 		$lesVisiteurs =array();
 		$laLigne = $res->fetch();
 		while($laLigne != null)	{
-                        $visiteur = $LaLigne['visiteur'];
+                        $visiteur = $laLigne['visiteur'];
 			$nom = $laLigne['nom'];
                         $prenom = $laLigne['prenom'];
 			$lesVisiteurs["$visiteur"]=array(

@@ -1,5 +1,5 @@
 ﻿ <div id="contenu">
-      <h2>Mes fiches de frais</h2>
+    <?php if($_SESSION["visiteur"]==true){ echo '<h2>Mes fiches de frais</h2>'; }else{ echo '<h2>Fiche de frais a valider</h2>';} ?>
       <h3>Mois à sélectionner : </h3>
       <form action=<?php if($_SESSION["visiteur"]==true){
                              echo "'index.php?uc=etatFrais&action=voirEtatFrais'"; 
@@ -48,17 +48,9 @@
       </form>
       
       
-      
-      
-      <?php if($_SESSION["comptable"]==true){?>
-      <h3>Liste des fiches frais a valider par visiteur pour le mois : </h3>
-      <form action=<?php if($_SESSION["visiteur"]==true){
-                             echo "'index.php?uc=etatFrais&action=voirEtatFrais'"; 
-                             }
-                             else
-                             { 
-                                 echo "'index.php?uc=etatFrais&action=voirEtatFraisComptable'";       
-                             }?> method="post">
+      <?php if($_SESSION["comptable"]==true && isset($lesVisiteurs)){?>
+      <h3>Liste des fiches frais a valider pour les visiteurs du mois : <?php echo (substr( $leMois,4,2));echo ' / '; echo(substr( $leMois,0,4)); ?> </h3>
+      <form action="index.php?uc=etatFrais&action=voirEtatFraisComptable&leMois=<?php echo($leMois); ?>" method="post">
       <div class="corpsForm">
          
       <p>
