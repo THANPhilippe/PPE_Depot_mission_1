@@ -32,9 +32,7 @@ switch($action){
                 //Deuxieme liste deroulante
                 $leMois = $_REQUEST['lstMois'];
                 echo ($leMois);
-		$lesFiches=$pdo->getToutLesFichesDisponibles($leMois);
-		$lesClesFiche = array_keys( $lesFiches );
-		$ficheASelectionner = $lesClesFiche[0];
+		$lesVisiteurs=$pdo->getToutLesFichesDisponiblesComptable($leMois);
 		include("vues/v_listeMois.php");
 		break;
 	}

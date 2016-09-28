@@ -51,7 +51,7 @@
       
       
       <?php if($_SESSION["comptable"]==true){?>
-      <h3>Liste des fiche frais a valider par visiteur pour le mois : </h3>
+      <h3>Liste des fiches frais a valider par visiteur pour le mois : </h3>
       <form action=<?php if($_SESSION["visiteur"]==true){
                              echo "'index.php?uc=etatFrais&action=voirEtatFrais'"; 
                              }
@@ -63,10 +63,9 @@
          
       <p>
 	 
-        <label for="lstVisiteur" accesskey="n">Mois : </label>
+        <label for="lstVisiteur" accesskey="n">Visiteurs : </label>
         <select id="lstVisiteur" name="lstVisiteur">
             <?php
-            
 			foreach ($lesVisiteurs as $unVisiteur)
 			{
 			    $visiteur = $unVisiteur['visiteur'];
@@ -76,7 +75,6 @@
 				<option value="<?php echo $visiteur ?>"><?php echo  $nom."/".$prenom ?> </option>
 				<?php 
 			}
-           
 		   ?>    
             
         </select>

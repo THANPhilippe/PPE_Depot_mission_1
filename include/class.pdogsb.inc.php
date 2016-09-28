@@ -309,9 +309,9 @@ class PdoGsb{
 		return $lesMois;
 	}
         
-        public function getToutLesFichesDisponibles($leMois){
-		$req = "select visiteur.id as visiteur, visiteur.nom as nom, visiteur.prenom as prenom from visiteur inner join fichefrais
-                        on fichefrais.idvisiteur = visiteur.id
+        public function getToutLesFichesDisponiblesComptable($leMois){
+		$req = "select visiteur.id as visiteur, visiteur.nom as nom, visiteur.prenom as prenom from visiteur join fichefrais
+                        on fichefrais.idVisiteur = visiteur.id
                         where fichefrais.mois='$leMois'";
 		$res = PdoGsb::$monPdo->query($req);
 		$lesVisiteurs =array();
