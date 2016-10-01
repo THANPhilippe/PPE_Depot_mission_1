@@ -61,6 +61,13 @@ class PdoGsb{
 		return $ligne;
 	}
         
+        public function getInfosNomPrenom($idVisiteur){
+		$req = "SELECT nom as nom,prenom as prenom FROM visiteur WHERE id = '$idVisiteur' ";
+		$rs = PdoGsb::$monPdo->query($req);
+		$ligne = $rs->fetch();
+		return $ligne;
+	}
+        
         /**
  * Retourne les informations d'un admin
  

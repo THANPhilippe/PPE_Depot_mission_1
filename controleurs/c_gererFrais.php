@@ -27,6 +27,10 @@ switch($action){
 		}
 	  break;
 	}
+        case 'validerMajFraisForfaitComptable':{
+		
+	  break;
+	}
 	case 'validerCreationFrais':{
 		$dateFrais = $_REQUEST['dateFrais'];
 		$libelle = $_REQUEST['libelle'];

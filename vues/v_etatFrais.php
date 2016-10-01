@@ -56,15 +56,21 @@
           }
 		?>
     </table>
-                 
-            <?php if($_SESSION["visiteur"]==false){ 
-                echo '<input name="valider" href="index.php?uc=gererFrais&action=ValiderFrais" type="button" value="Valider la fiche" size="20"; />';
-            }
-                ?>
+          
   </div>
-  </div>
+        <?php if($_SESSION["visiteur"]==false){ ?>
+            <div class="piedForm">
+            <p>
+                <form action="index.php?uc=etatFrais&action=validerFrais" method="post">
+                <input type="hidden" name="leMois" value="<?php echo($leMois); ?>">
+                <input type="hidden" name="leVisiteur" value="<?php echo($leVisiteur); ?>">
+                <input type="submit" value="Valider la fiche" size="20" name="valider"> <!-- On envoie le mois et l'ID visiteur correspondant a la selection du comptable -->
+                </form>
+            </p> 
+            </div>  
+          
+        <?php }?>
  
-
 
 
 

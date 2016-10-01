@@ -33,6 +33,7 @@ switch($action){
 		$dateModif =  $lesInfosFicheFrais['dateModif'];
 		$dateModif =  dateAnglaisVersFrancais($dateModif);
 		include("vues/v_etatFrais.php");
+                break;
 	}
         
         case 'selectionnerMoisComptable':{
@@ -58,7 +59,6 @@ switch($action){
                 $leMois = $_GET['leMois'];//On recupère la valeur du précédent formulaire
 		$moisASelectionner = $leMois; //Pour metre le mois selectionné en selection de base
             //Deuxieme liste deroulante
-                $leMois = $_GET['leMois'];//On recupère la valeur du précédent formulaire
 		$lesVisiteurs=$pdo->getToutesLesFichesDisponiblesComptable($leMois);
 		include("vues/v_listeMois.php");
             //Affichage de la fiche visiteur pour le mois
@@ -73,19 +73,21 @@ switch($action){
 		$nbJustificatifs = $lesInfosFicheFrais['nbJustificatifs'];
 		$dateModif =  $lesInfosFicheFrais['dateModif'];
 		$dateModif =  dateAnglaisVersFrancais($dateModif);
-		include("vues/v_etatFrais.php");;
+		include("vues/v_etatFrais.php");
+                break;
 	}
         
-        case 'ValiderFrais':{
-            $leMois = $_GET['leMois'];
+        case 'validerFrais':{
+            $leMois = $_POST['leMois'];
+            $idVisiteur = $_POST['leVisiteur'];
             $numAnnee =substr( $leMois,0,4);
             $numMois =substr( $leMois,4,2);
-            $pdo->Valider($leVisiteur,$numAnnee,$numMois);
+            $pdo->Valider($idVisiteur,$numAnnee,$numMois);
+            $infosVisiteur = $pdo->getInfosNomPrenom($idVisiteur);
+            $nom =  $infosVisiteur['nom'];
+            $prenom = $infosVisiteur['prenom'];
+            include("vues/v_etatFraisValidation.php");
+            break;
         }
-
-        
-        
-        
-      
 }
 ?>
