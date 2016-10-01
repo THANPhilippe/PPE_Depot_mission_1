@@ -346,6 +346,11 @@ class PdoGsb{
 		return $LaLigne;
 	}
         
+        public function Valider($idVisiteur, $numAnnee, $numMois){
+                $req = "update fichefrais set idEtat = 'VA' where mois=$numAnnee$numMois and idVisiteur='$idVisiteur' ";
+		PdoGsb::$monPdo->exec($req);
+	}
+        
         
 /**
  * Modifie l'état et la date de modification d'une fiche de frais

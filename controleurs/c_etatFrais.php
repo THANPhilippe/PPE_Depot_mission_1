@@ -74,8 +74,15 @@ switch($action){
 		$nbJustificatifs = $lesInfosFicheFrais['nbJustificatifs'];
 		$dateModif =  $lesInfosFicheFrais['dateModif'];
 		$dateModif =  dateAnglaisVersFrancais($dateModif);
-		include("vues/v_etatFrais.php");
+		include("vues/v_etatFrais.php");;
 	}
+        
+        case 'ValiderFrais':{
+            $leMois = $_GET['leMois'];
+            $numAnnee =substr( $leMois,0,4);
+            $numMois =substr( $leMois,4,2);
+            $pdo->Valider($leVisiteur,$numAnnee,$numMois);
+        }
 
         
         

@@ -56,6 +56,11 @@
           }
 		?>
     </table>
+                 
+            <?php if($_SESSION["visiteur"]==false){ 
+                echo '<input name="valider" href="index.php?uc=gererFrais&action=ValiderFrais" type="button" value="Valider la fiche" size="20"; />';
+            }
+                ?>
   </div>
   </div>
  
