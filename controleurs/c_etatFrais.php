@@ -36,7 +36,7 @@ switch($action){
 	}
         
         case 'selectionnerMoisComptable':{
-		$lesMois=$pdo->getToutLesMoisDisponibles();
+		$lesMois=$pdo->getToutLesMoisDisponiblesComptable();
 		$lesCles = array_keys( $lesMois ); //
 		$moisASelectionner = $lesCles[0]; //Pour metre le premier en selection de base
 		include("vues/v_listeMois.php");
@@ -44,23 +44,22 @@ switch($action){
 	}
         case 'selectionnerMoisFicheComptable':{
             //Première liste déroulante
-            	$lesMois=$pdo->getToutLesMoisDisponibles();
-		$lesCles = array_keys( $lesMois ); //
-		$moisASelectionner = $lesCles[0]; //Pour la première valeur de la liste
+            	$lesMois=$pdo->getToutLesMoisDisponiblesComptable();
+                $leMois = $_REQUEST['lstMois']; //On recupère la valeur du précédent formulaire
+		$moisASelectionner = $leMois ; //Pour metre le mois selectionné en selection de base
             //Deuxieme liste deroulante
-                $leMois = $_REQUEST['lstMois'];
-		$lesVisiteurs=$pdo->getToutLesFichesDisponiblesComptable($leMois);
+		$lesVisiteurs=$pdo->getToutesLesFichesDisponiblesComptable($leMois); 
 		include("vues/v_listeMois.php");
 		break;
 	}
         case 'voirEtatFraisComptable':{
             //Première liste déroulante
-            	$lesMois=$pdo->getToutLesMoisDisponibles();
-		$lesCles = array_keys( $lesMois ); //
-		$moisASelectionner = $lesCles[0]; //Pour la première valeur de la liste
+            	$lesMois=$pdo->getToutLesMoisDisponiblesComptable();
+                $leMois = $_GET['leMois'];//On recupère la valeur du précédent formulaire
+		$moisASelectionner = $leMois; //Pour metre le mois selectionné en selection de base
             //Deuxieme liste deroulante
                 $leMois = $_GET['leMois'];//On recupère la valeur du précédent formulaire
-		$lesVisiteurs=$pdo->getToutLesFichesDisponiblesComptable($leMois);
+		$lesVisiteurs=$pdo->getToutesLesFichesDisponiblesComptable($leMois);
 		include("vues/v_listeMois.php");
             //Affichage de la fiche visiteur pour le mois
                 $leVisiteur = $_REQUEST['lstVisiteur']; 

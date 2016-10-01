@@ -18,8 +18,8 @@
 class PdoGsb{   		
       	private static $serveur='mysql:host=localhost';
       	private static $bdd='dbname=pthan';   		
-      	private static $user='pthan' ;    		
-      	private static $mdp='Ti8eitho' ;	
+      	private static $user='root' ;    		
+      	private static $mdp='' ;	
 		private static $monPdo;
 		private static $monPdoGsb=null;
 /**
@@ -289,9 +289,8 @@ class PdoGsb{
 	}
         
         
-        
-        public function getToutLesMoisDisponibles(){
-		$req = "select fichefrais.mois as mois from fichefrais order by fichefrais.mois desc ";
+        public function getToutLesMoisDisponiblesComptable(){
+		$req = "SELECT fichefrais.mois as mois FROM fichefrais WHERE idEtat = 'CR' order by fichefrais.mois desc ";
 		$res = PdoGsb::$monPdo->query($req);
 		$lesMois =array();
 		$laLigne = $res->fetch();
@@ -309,8 +308,8 @@ class PdoGsb{
 		return $lesMois;
 	}
         
-        public function getToutLesFichesDisponiblesComptable($leMois){
-		$req = "SELECT id as visiteur,nom as nom,prenom as prenom FROM visiteur JOIN fichefrais WHERE id = idVisiteur AND mois='$leMois' and idEtat = 'CL' ";
+        public function getToutesLesFichesDisponiblesComptable($leMois){
+		$req = "SELECT id as visiteur,nom as nom,prenom as prenom FROM visiteur JOIN fichefrais WHERE id = idVisiteur AND mois='$leMois' and idEtat = 'CR' ";
 		$res = PdoGsb::$monPdo->query($req);
 		$lesVisiteurs =array();
 		$laLigne = $res->fetch();
