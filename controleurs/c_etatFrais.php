@@ -48,9 +48,10 @@ switch($action){
             	$lesMois=$pdo->getToutLesMoisDisponiblesComptable();
                 $leMois = $_REQUEST['lstMois']; //On recupère la valeur du précédent formulaire
 		$moisASelectionner = $leMois ; //Pour metre le mois selectionné en selection de base
+                include("vues/v_listeMois.php");
             //Deuxieme liste deroulante
 		$lesVisiteurs=$pdo->getToutesLesFichesDisponiblesComptable($leMois); 
-		include("vues/v_listeMois.php");
+		include("vues/v_listeVisiteur.php");
 		break;
 	}
         case 'voirEtatFraisComptable':{
@@ -58,9 +59,10 @@ switch($action){
             	$lesMois=$pdo->getToutLesMoisDisponiblesComptable();
                 $leMois = $_POST['leMois'];//On recupère la valeur du précédent formulaire
 		$moisASelectionner = $leMois; //Pour metre le mois selectionné en selection de base
+                include("vues/v_listeMois.php");
             //Deuxieme liste deroulante
 		$lesVisiteurs=$pdo->getToutesLesFichesDisponiblesComptable($leMois);
-		include("vues/v_listeMois.php");
+		include("vues/v_listeVisiteur.php");
             //Affichage de la fiche visiteur pour le mois
                 $leVisiteur = $_REQUEST['lstVisiteur'];
 		$lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($leVisiteur,$leMois);
@@ -110,9 +112,10 @@ switch($action){
             	$lesMois=$pdo->getToutLesMoisDisponiblesComptable();
                 $leMois = $_POST['leMois'];//On recupère la valeur du précédent formulaire
 		$moisASelectionner = $leMois; //Pour metre le mois selectionné en selection de base
+                include("vues/v_listeMois.php");
             //Deuxieme liste deroulante
 		$lesVisiteurs=$pdo->getToutesLesFichesDisponiblesComptable($leMois);
-		include("vues/v_listeMois.php");
+		include("vues/v_listeVisiteur.php");
             //Affichage de la fiche visiteur pour le mois
                 $leVisiteur = $_POST['leVisiteur'];
 		$lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($leVisiteur,$leMois);
@@ -138,9 +141,10 @@ switch($action){
                 $leMois = $_POST['leMois'];//On recupère la valeur du précédent formulaire
                 $MoisModif = $_POST['MoisModif']; //One récupère le mois modifié (ou non)
 		$moisASelectionner = $leMois; //Pour metre le mois selectionné en selection de base
+                include("vues/v_listeMois.php");
             //Deuxieme liste deroulante
 		$lesVisiteurs=$pdo->getToutesLesFichesDisponiblesComptable($leMois);
-		include("vues/v_listeMois.php");
+		include("vues/v_listeVisiteur.php");
             //Affichage de la fiche visiteur pour le mois
                 $leVisiteur = $_POST['leVisiteur'];
                 echo $MoisModif;
