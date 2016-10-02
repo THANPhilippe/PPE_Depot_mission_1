@@ -78,14 +78,17 @@ switch($action){
 	}
         
         case 'validerFrais':{
-            $leMois = $_POST['leMois'];
-            $idVisiteur = $_POST['leVisiteur'];
-            $numAnnee =substr( $leMois,0,4);
-            $numMois =substr( $leMois,4,2);
-            $pdo->Valider($idVisiteur,$numAnnee,$numMois);
-            $infosVisiteur = $pdo->getInfosNomPrenom($idVisiteur);
-            $nom =  $infosVisiteur['nom'];
-            $prenom = $infosVisiteur['prenom'];
+            if(!empty($_POST))
+            {
+                $leMois = $_POST['leMois'];
+                $idVisiteur = $_POST['leVisiteur'];
+                $numAnnee =substr( $leMois,0,4);
+                $numMois =substr( $leMois,4,2);
+                $pdo->Valider($idVisiteur,$numAnnee,$numMois);
+                $infosVisiteur = $pdo->getInfosNomPrenom($idVisiteur);
+                $nom =  $infosVisiteur['nom'];
+                $prenom = $infosVisiteur['prenom'];
+            }
             include("vues/v_etatFraisValidation.php");
             break;
         }
