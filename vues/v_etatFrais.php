@@ -40,7 +40,8 @@
                 <th class="date">Date</th>
                 <th class="libelle">Libellé</th>
                 <th class='montant'>Montant</th>  
-                <th class='statut'>Statut</th>
+                <th class='statut'>Suprimer</th>
+                <th class='statut'>Reporter</th>
              </tr>
              <form action="index.php?uc=etatFrais&action=modifierStatut" method="post">
         <?php      
@@ -55,8 +56,11 @@
                 <td><?php echo $libelle ?></td>
                 <td><?php echo $montant ?></td>
                 <td><?php if($_SESSION["visiteur"]==false){
-                                echo '<input type="text" name="choix[]" maxlength="10">';
-                            } else { echo $statut; } ?></td>
+                                echo '<input type="checkbox" name="choix[]">';
+                            } ?></td>
+                <td><?php if($_SESSION["visiteur"]==false){
+                                echo '<input type="text" name="choix2[]" maxlength="10">';
+                            } ?></td>
              </tr>
         <?php 
           }
@@ -79,16 +83,3 @@
             </p> 
             </div>  
         <?php }?>
- 
-
-
-
-
-
-
-
-
-
-
-
-
