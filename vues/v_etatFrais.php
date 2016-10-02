@@ -40,13 +40,14 @@
                 <th class="date">Date</th>
                 <th class="libelle">Libellé</th>
                 <th class='montant'>Montant</th>  
-                <th class='statut'>Suprimer</th>
+                <th class='statut'>Supprimer</th>
                 <th class='statut'>Reporter</th>
              </tr>
              <form action="index.php?uc=etatFrais&action=modifierStatut" method="post">
         <?php      
           foreach ( $lesFraisHorsForfait as $unFraisHorsForfait ) 
 		  {
+                        $idFrais = $unFraisHorsForfait['id'];
 			$date = $unFraisHorsForfait['date'];
 			$libelle = $unFraisHorsForfait['libelle'];
 			$montant = $unFraisHorsForfait['montant'];                            
@@ -71,6 +72,7 @@
         <?php if($_SESSION["visiteur"]==false){ ?>
             <div class="piedForm">
             <p>
+                <input type="hidden" name="idFrais" value="<?php echo($idFrais); ?>">
                 <input type="hidden" name="leMois" value="<?php echo($leMois); ?>">
                 <input type="hidden" name="leVisiteur" value="<?php echo($leVisiteur); ?>">
                 <input type="submit" value="Modifier statut" size="20" name="statut"> <!-- On envoie le mois et l'ID visiteur correspondant a la selection du comptable -->

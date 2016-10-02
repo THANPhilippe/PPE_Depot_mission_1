@@ -98,16 +98,15 @@ switch($action){
         }
         
             case 'modifierStatut':{
-                $statut = "";
-                $choix = $_POST['choix'];
-                for($i=0; $i < count($choix); $i++){
-                    if($choix[$i] == "Refusé"){
-                       $statut = "Refusé";
-                    }
-                    else{
-                        $statut = "Validé";
+                if(isset($_POST['choix'])){
+                    $choix=$_POST['choix'];
+                    for($i=0 ;i<=count($choix); $i++){
+                        if(isset($_POST['choix']) == TRUE) {
+                        $pdo->supprimerFraisHorsForfait($idFrais);
+                        }
                     }
                 }
+                
             //Première liste déroulante
             	$lesMois=$pdo->getToutLesMoisDisponiblesComptable();
                 $leMois = $_POST['leMois'];//On recupère la valeur du précédent formulaire
