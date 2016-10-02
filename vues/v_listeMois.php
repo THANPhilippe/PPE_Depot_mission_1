@@ -41,7 +41,6 @@
       <div class="piedForm">
       <p>
         <input id="ok" type="submit" value="Valider" size="20" />
-        <input id="annuler" type="reset" value="Effacer" size="20" />
       </p> 
       </div>
         
@@ -50,7 +49,7 @@
       
       <?php if($_SESSION["comptable"]==true && isset($lesVisiteurs)){?>
       <h3>Liste des fiches frais a valider pour les visiteurs du mois : <?php echo (substr( $leMois,4,2));echo ' / '; echo(substr( $leMois,0,4)); ?> </h3>
-      <form action="index.php?uc=etatFrais&action=voirEtatFraisComptable&leMois&leMois=<?php echo($leMois); ?>" method="post">
+      <form action="index.php?uc=etatFrais&action=voirEtatFraisComptable" method="post">
       <div class="corpsForm">
          
       <p>
@@ -74,8 +73,8 @@
       </div>
       <div class="piedForm">
       <p>
+        <input type="hidden" name="leMois" value="<?php echo($leMois); ?>">
         <input id="ok" type="submit" value="Valider" size="20" />
-        <input id="annuler" type="reset" value="Effacer" size="20" />
       </p> 
       </div>
         

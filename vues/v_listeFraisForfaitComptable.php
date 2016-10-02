@@ -1,7 +1,8 @@
 ﻿
-      <h2>Modification de la liste de frais <?php echo $numMois."-".$numAnnee ?></h2>
+<br><br><br>
+      <h2>Modification de la liste de frais du <?php echo $numMois."-".$numAnnee ?></h2>
          
-      <form method="POST"  action="index.php?uc=gererFrais&action=validerMajFraisForfaitComptable">
+      <form method="POST"  action="index.php?uc=etatFrais&action=validerMajFraisForfaitComptable">
       <div class="corpsForm">
           
           <fieldset>
@@ -31,8 +32,9 @@
       </div>
       <div class="piedForm">
       <p>
-        <input id="ok" type="submit" value="Valider" size="20" />
-        <input id="annuler" type="reset" value="Effacer" size="20" />
+        <input type="hidden" name="leVisiteur" value="<?php echo($leVisiteur); ?>">
+        <input type="hidden" name="leMois" value="<?php echo($leMois); ?>">
+        <input id="ok" type="submit" value="Valider la modification" size="20" />
       </p> 
       </div>
         

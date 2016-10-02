@@ -19,17 +19,21 @@ switch($action){
 			$id = $visiteur['id'];
 			$nom =  $visiteur['nom'];
 			$prenom = $visiteur['prenom'];
+                        $type = "VISITEUR";
 			connecter($id,$nom,$prenom);
 			include("vues/v_sommaire.php");
+                        include("vues/v_accueilConnexion.php");
 		}
                 elseif (is_array($comptable)) {
                         $_SESSION["comptable"]=true;
                         $_SESSION["visiteur"]=false;
-                        $idcomptable = $comptable['id'];
-			$nomcomptable =  $comptable['nom'];
-			$prenomcomptable = $comptable['prenom'];
-			connecter($idcomptable,$nomcomptable,$prenomcomptable);
-			include("vues/v_comptable.php");     
+                        $id = $comptable['id'];
+			$nom =  $comptable['nom'];
+			$prenom = $comptable['prenom'];
+                        $type = "COMPTABLE";
+			connecter($id,$nom,$prenom);
+			include("vues/v_comptable.php");
+                        include("vues/v_accueilConnexion.php");
                 }
                 else{
 			ajouterErreur("Login ou mot de passe incorrect");

@@ -56,13 +56,13 @@ switch($action){
         case 'voirEtatFraisComptable':{
             //Première liste déroulante
             	$lesMois=$pdo->getToutLesMoisDisponiblesComptable();
-                $leMois = $_GET['leMois'];//On recupère la valeur du précédent formulaire
+                $leMois = $_POST['leMois'];//On recupère la valeur du précédent formulaire
 		$moisASelectionner = $leMois; //Pour metre le mois selectionné en selection de base
             //Deuxieme liste deroulante
 		$lesVisiteurs=$pdo->getToutesLesFichesDisponiblesComptable($leMois);
 		include("vues/v_listeMois.php");
             //Affichage de la fiche visiteur pour le mois
-                $leVisiteur = $_REQUEST['lstVisiteur']; 
+                $leVisiteur = $_REQUEST['lstVisiteur'];
 		$lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($leVisiteur,$leMois);
 		$lesFraisForfait= $pdo->getLesFraisForfait($leVisiteur,$leMois);
 		$lesInfosFicheFrais = $pdo->getLesInfosFicheFrais($leVisiteur,$leMois);
@@ -74,9 +74,11 @@ switch($action){
 		$dateModif =  $lesInfosFicheFrais['dateModif'];
 		$dateModif =  dateAnglaisVersFrancais($dateModif);
 		include("vues/v_etatFrais.php");
+            //Affichage de la modification possible d'un frais forfait
+                include("vues/v_listeFraisForfaitComptable.php");
                 break;
 	}
-        
+      
         case 'validerFrais':{
             if(!empty($_POST))
             {
@@ -92,5 +94,43 @@ switch($action){
             include("vues/v_etatFraisValidation.php");
             break;
         }
+        
+        case 'validerMajFraisForfaitComptable':{ 
+            // On affiche la meme selection qu'auparavant, avec les données modifiées
+            //Première liste déroulante
+            	$lesMois=$pdo->getToutLesMoisDisponiblesComptable();
+                $leMois = $_POST['leMois'];//On recupère la valeur du précédent formulaire
+		$moisASelectionner = $leMois; //Pour metre le mois selectionné en selection de base
+            //Deuxieme liste deroulante
+		$lesVisiteurs=$pdo->getToutesLesFichesDisponiblesComptable($leMois);
+		include("vues/v_listeMois.php");
+            //Affichage de la fiche visiteur pour le mois
+                $leVisiteur = $_POST['leVisiteur'];
+                
+                $lesFrais = $_POST['lesFrais'];
+                if(lesQteFraisValides($lesFrais)){
+	  	 	$pdo->majFraisForfait($leVisiteur,$leMois,$lesFrais);
+		}
+		else{
+			ajouterErreur("Les valeurs des frais doivent Ãªtre numÃ©riques");
+			include("vues/v_erreurs.php");
+		}
+                
+                
+		$lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($leVisiteur,$leMois);
+		$lesFraisForfait= $pdo->getLesFraisForfait($leVisiteur,$leMois);
+		$lesInfosFicheFrais = $pdo->getLesInfosFicheFrais($leVisiteur,$leMois);
+		$numAnnee =substr( $leMois,0,4);
+		$numMois =substr( $leMois,4,2);
+		$libEtat = $lesInfosFicheFrais['libEtat'];
+		$montantValide = $lesInfosFicheFrais['montantValide'];
+		$nbJustificatifs = $lesInfosFicheFrais['nbJustificatifs'];
+		$dateModif =  $lesInfosFicheFrais['dateModif'];
+		$dateModif =  dateAnglaisVersFrancais($dateModif);
+		include("vues/v_etatFrais.php");
+            //Affichage de la modification d'un frais forfait
+                include("vues/v_listeFraisForfaitComptable.php");
+	  break;
+	}
 }
 ?>
