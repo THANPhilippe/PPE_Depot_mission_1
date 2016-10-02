@@ -95,9 +95,18 @@ switch($action){
             break;
         }
         
-        case 'validerMajFraisForfaitComptable':{ 
-            // On affiche la meme selection qu'auparavant, avec les données modifiées
-            //Première liste déroulante
+            case 'modifierStatut':{
+                $statut = "";
+                $choix = $_POST['choix'];
+                for($i=0; $i < count($choix); $i++){
+                    if($choix[$i] == "Refusé"){
+                       $statut = "Refusé";
+                    }
+                    else{
+                        $statut = "Validé";
+                    }
+                }
+             //Première liste déroulante
             	$lesMois=$pdo->getToutLesMoisDisponiblesComptable();
                 $leMois = $_POST['leMois'];//On recupère la valeur du précédent formulaire
 		$moisASelectionner = $leMois; //Pour metre le mois selectionné en selection de base
@@ -106,7 +115,35 @@ switch($action){
 		include("vues/v_listeMois.php");
             //Affichage de la fiche visiteur pour le mois
                 $leVisiteur = $_POST['leVisiteur'];
-                
+		$lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($leVisiteur,$leMois);
+		$lesFraisForfait= $pdo->getLesFraisForfait($leVisiteur,$leMois);
+		$lesInfosFicheFrais = $pdo->getLesInfosFicheFrais($leVisiteur,$leMois);
+		$numAnnee =substr( $leMois,0,4);
+		$numMois =substr( $leMois,4,2);
+		$libEtat = $lesInfosFicheFrais['libEtat'];
+		$montantValide = $lesInfosFicheFrais['montantValide'];
+		$nbJustificatifs = $lesInfosFicheFrais['nbJustificatifs'];
+		$dateModif =  $lesInfosFicheFrais['dateModif'];
+		$dateModif =  dateAnglaisVersFrancais($dateModif);
+		include("vues/v_etatFrais.php");
+            //Affichage de la modification possible d'un frais forfait
+                include("vues/v_listeFraisForfaitComptable.php");
+                break;
+        }
+        
+        case 'validerMajFraisForfaitComptable':{ 
+            // On affiche la meme selection qu'auparavant, avec les données modifiées
+            //Première liste déroulante
+            	$lesMois=$pdo->getToutLesMoisDisponiblesComptable();
+                $leMois = $_POST['leMois'];//On recupère la valeur du précédent formulaire
+                $MoisModif = $_POST['MoisModif']; //One récupère le mois modifié (ou non)
+		$moisASelectionner = $leMois; //Pour metre le mois selectionné en selection de base
+            //Deuxieme liste deroulante
+		$lesVisiteurs=$pdo->getToutesLesFichesDisponiblesComptable($leMois);
+		include("vues/v_listeMois.php");
+            //Affichage de la fiche visiteur pour le mois
+                $leVisiteur = $_POST['leVisiteur'];
+                echo $MoisModif;
                 $lesFrais = $_POST['lesFrais'];
                 if(lesQteFraisValides($lesFrais)){
 	  	 	$pdo->majFraisForfait($leVisiteur,$leMois,$lesFrais);
@@ -115,7 +152,12 @@ switch($action){
 			ajouterErreur("Les valeurs des frais doivent Ãªtre numÃ©riques");
 			include("vues/v_erreurs.php");
 		}
-                
+                if($MoisModif >= $leMois){
+                    $pdo->majMois($leVisiteur,$leMois,$MoisModif);
+                }
+                else{
+                    echo "Le mois modifié doit être supérieur au mois actuel.";
+                }
                 
 		$lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($leVisiteur,$leMois);
 		$lesFraisForfait= $pdo->getLesFraisForfait($leVisiteur,$leMois);

@@ -45,6 +45,7 @@ switch($action){
 	    $pdo->supprimerFraisHorsForfait($idFrais);
 		break;
 	}
+       
 }
 $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($idVisiteur,$mois);
 $lesFraisForfait= $pdo->getLesFraisForfait($idVisiteur,$mois);

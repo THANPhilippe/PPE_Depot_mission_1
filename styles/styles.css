@@ -272,6 +272,10 @@ table.listeLegere th.date, table.listeLegere th.montant{
   width:15%;
   color:black;
 }
+  table.listeLegere th.statut{
+  width:15%;
+  color:black;
+}
 table.listeLegere th.libelle{
   width:70%;
   color:black;

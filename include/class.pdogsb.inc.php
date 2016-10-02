@@ -18,8 +18,8 @@
 class PdoGsb{   		
       	private static $serveur='mysql:host=localhost';
       	private static $bdd='dbname=pthan';   		
-      	private static $user='root' ;    		
-      	private static $mdp='' ;	
+      	private static $user='pthan' ;    		
+      	private static $mdp='Ti8eitho' ;	
 		private static $monPdo;
 		private static $monPdoGsb=null;
 /**
@@ -173,6 +173,13 @@ class PdoGsb{
 		}
 		
 	}
+        
+        	public function majMois($idVisiteur, $mois, $MoisModif){
+			$req = "update lignefraisforfait set lignefraisforfait.mois = '$MoisModif'
+			where lignefraisforfait.idvisiteur = '$idVisiteur' and lignefraisforfait.mois = '$mois'";
+			PdoGsb::$monPdo->exec($req);
+		}
+                
 /**
  * met à jour le nombre de justificatifs de la table ficheFrais
  * pour le mois et le visiteur concerné

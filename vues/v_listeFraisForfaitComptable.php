@@ -23,7 +23,10 @@
 			<?php
 				}
 			?>
-			
+                                        <label for="idFrais"><?php echo "Le mois:" ?></label>
+                                        <p>
+                                        <input type="text" id="idFrais" name="MoisModif" size="10" maxlength="6" value="<?php echo $leMois?>" >
+                                        </p>
 			
 			
 			

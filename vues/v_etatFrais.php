@@ -39,19 +39,24 @@
              <tr>
                 <th class="date">Date</th>
                 <th class="libelle">Libellé</th>
-                <th class='montant'>Montant</th>                
+                <th class='montant'>Montant</th>  
+                <th class='statut'>Statut</th>
              </tr>
+             <form action="index.php?uc=etatFrais&action=modifierStatut" method="post">
         <?php      
           foreach ( $lesFraisHorsForfait as $unFraisHorsForfait ) 
 		  {
 			$date = $unFraisHorsForfait['date'];
 			$libelle = $unFraisHorsForfait['libelle'];
-			$montant = $unFraisHorsForfait['montant'];
+			$montant = $unFraisHorsForfait['montant'];                            
 		?>
              <tr>
                 <td><?php echo $date ?></td>
                 <td><?php echo $libelle ?></td>
                 <td><?php echo $montant ?></td>
+                <td><?php if($_SESSION["visiteur"]==false){
+                                echo '<input type="text" name="choix[]" maxlength="10">';
+                            } else { echo $statut; } ?></td>
              </tr>
         <?php 
           }
@@ -62,6 +67,10 @@
         <?php if($_SESSION["visiteur"]==false){ ?>
             <div class="piedForm">
             <p>
+                <input type="hidden" name="leMois" value="<?php echo($leMois); ?>">
+                <input type="hidden" name="leVisiteur" value="<?php echo($leVisiteur); ?>">
+                <input type="submit" value="Modifier statut" size="20" name="statut"> <!-- On envoie le mois et l'ID visiteur correspondant a la selection du comptable -->
+                </form>
                 <form action="index.php?uc=etatFrais&action=validerFrais" method="post">
                 <input type="hidden" name="leMois" value="<?php echo($leMois); ?>">
                 <input type="hidden" name="leVisiteur" value="<?php echo($leVisiteur); ?>">
