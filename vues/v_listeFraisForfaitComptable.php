@@ -4,34 +4,27 @@
          
       <form method="POST"  action="index.php?uc=etatFrais&action=validerMajFraisForfaitComptable">
       <div class="corpsForm">
-          
           <fieldset>
             <legend>Eléments forfaitisés
             </legend>
-			<?php
-				foreach ($lesFraisForfait as $unFrais)
-				{
-					$idFrais = $unFrais['idfrais'];
-					$libelle = $unFrais['libelle'];
-					$quantite = $unFrais['quantite'];
-			?>
-					<p>
-						<label for="idFrais"><?php echo $libelle ?></label>
-						<input type="text" id="idFrais" name="lesFrais[<?php echo $idFrais?>]" size="10" maxlength="5" value="<?php echo $quantite?>" >
-					</p>
-			
-			<?php
-				}
-			?>
-                                        <label for="idFrais"><?php echo "Le mois:" ?></label>
-                                        <p>
-                                        <input type="text" id="idFrais" name="MoisModif" size="10" maxlength="6" value="<?php echo $leMois?>" >
-                                        </p>
-			
-			
-			
-           
+            <?php
+                $i=0;
+		foreach ($lesFraisForfait as $unFrais)
+		{
+                    $idFrais = $unFrais['idfrais'];
+                    $libelle = $unFrais['libelle'];
+                    $quantite = $unFrais['quantite'];
+            ?>
+            <p>
+		<label for="idFrais<?php echo($i); ?>"><?php echo $libelle ?></label>
+		<input type="text" id="idFrais<?php echo($i); ?>" name="lesFrais[<?php echo $idFrais?>]" size="10" maxlength="5" value="<?php echo $quantite?>" >
+            </p>	
+            <?php
+                $i++;
+        	}
+            ?>
           </fieldset>
+
       </div>
       <div class="piedForm">
       <p>
