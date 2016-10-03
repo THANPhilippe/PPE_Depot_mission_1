@@ -40,10 +40,10 @@
                 <th class="date">Date</th>
                 <th class="libelle">Libellé</th>
                 <th class='montant'>Montant</th>  
-                <th class='statut'>Supprimer</th>
                 <th class='statut'>Reporter</th>
+                <th class='statut'>Supprimer</th>
              </tr>
-             <form action="index.php?uc=etatFrais&action=modifierHorsForfait" method="post">
+            
         <?php
            $i = 0;
           foreach ( $lesFraisHorsForfait as $unFraisHorsForfait ) 
@@ -55,34 +55,29 @@
                         $numAnnee =substr( $date,6,4);
                         $numMois =substr( $date,3,2);  
                         $numDay =substr( $date,0,2);
-                        $idTable[$i]=$idFrais;
 		?>
              <tr>
                 <td><?php echo $date ?></td>
                 <td><?php echo $libelle ?></td>
                 <td><?php echo $montant ?></td>
-                <td><?php if($_SESSION["visiteur"]==false){
-                                echo '<input type="checkbox" name="choix[]">';
-                            } ?></td>
+                
                 <td><?php if($_SESSION["visiteur"]==false){?>
-                                <input type='date' name='idTable[<?php echo $i; ?>]' maxlength='10' value='<?php echo $numAnnee; ?>-<?php echo $numMois; ?>-<?php echo $numDay; ?>' >
-                            <?php } ?></td>
+                <input type='date' name='' maxlength='10' value='<?php echo $numAnnee; ?>-<?php echo $numMois; ?>-<?php echo $numDay; ?>' >
+                <?php } ?></td>
+                
+                <td>
+                <?php if($_SESSION["visiteur"]==false){?>
+                    <a href="index.php?uc=gererFrais&action=supprimerFraisComptable&idFrais=<?php echo $idFrais ?>&leMois=<?php echo $leMois ?>&leVisiteur=<?php echo $leVisiteur ?>" 
+                    accesskey=""onclick="return confirm('Voulez-vous vraiment supprimer ce frais?');">Supprimer ce frais</a>
+                 <?php } ?> 
+                </td>
+                
+               
              </tr>
         <?php $i++;
           }
 		?>
-             <tr><td></td><td></td><td></td>
-                <td>            
-                <input type="hidden" name="leMois" value="<?php echo($leMois); ?>">
-                <input type="hidden" name="leVisiteur" value="<?php echo($leVisiteur); ?>">
-                <input type="hidden" name="idTable" value="<?php echo($idTable); ?>">
-                <input type="submit" value="Supprimer" size="4" name="statut"> <!-- On envoie le mois et l'ID visiteur correspondant a la selection du comptable -->
-                 </td>
-                <td>            
-                <input type="submit" value="Modifier" size="4" name="statut"> <!-- On envoie le mois et l'ID visiteur correspondant a la selection du comptable -->
-                </form>
-                 </td>
-             </tr>
+
     </table>
           
   </div>

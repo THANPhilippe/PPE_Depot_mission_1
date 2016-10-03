@@ -13,9 +13,15 @@
 			    $visiteur = $unVisiteur['visiteur'];
 				$nom =  $unVisiteur['nom'];
 				$prenom =  $unVisiteur['prenom'];
+				if($visiteur == $visiteurASelectionner){
 				?>
+				<option selected value="<?php echo $visiteur ?>"><?php echo  $nom."/".$prenom ?> </option>
+				<?php 
+				}
+				else{ ?>
 				<option value="<?php echo $visiteur ?>"><?php echo  $nom."/".$prenom ?> </option>
 				<?php 
+				}
 			}
 		   ?>    
             
