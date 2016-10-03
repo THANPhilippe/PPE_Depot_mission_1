@@ -40,8 +40,10 @@
                 <th class="date">Date</th>
                 <th class="libelle">Libellé</th>
                 <th class='montant'>Montant</th>  
+                <?php if($_SESSION["visiteur"]==false){?> 
                 <th class='statut'>Reporter</th>
                 <th class='statut'>Supprimer</th>
+                <?php } ?>
              </tr>
             
         <?php
