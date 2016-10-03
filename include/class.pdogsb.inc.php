@@ -68,7 +68,7 @@ class PdoGsb{
 */
         public function getInfosNomPrenom($idVisiteur){
 		$req = "SELECT nom as nom,prenom as prenom FROM visiteur WHERE id = '$idVisiteur' ";
-		$rs = PdoGsb::$monPdo->query($req); //test 1er commit
+		$rs = PdoGsb::$monPdo->query($req);
 		$ligne = $rs->fetch();
 		return $ligne;
 	}
