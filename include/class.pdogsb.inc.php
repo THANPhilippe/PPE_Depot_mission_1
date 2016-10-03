@@ -60,7 +60,12 @@ class PdoGsb{
 		$ligne = $rs->fetch();
 		return $ligne;
 	}
-        
+/**
+ * Retourne les informations nom et prenom d'un visiteur
+ 
+ * @param $idVisiteur
+ * @return nom et prenom sous la forme d'un tableau associatif 
+*/
         public function getInfosNomPrenom($idVisiteur){
 		$req = "SELECT nom as nom,prenom as prenom FROM visiteur WHERE id = '$idVisiteur' ";
 		$rs = PdoGsb::$monPdo->query($req);
@@ -305,7 +310,12 @@ class PdoGsb{
 		return $lesMois;
 	}
         
-        
+/**
+ * Retourne les mois pour lesquel un visiteur a une fiche de frais a VALIDER
+ 
+ * @param aucun paramètre
+ * @return un tableau associatif des mois correspondant à la requete
+*/
         public function getToutLesMoisDisponiblesComptable(){
 		$req = "SELECT fichefrais.mois as mois FROM fichefrais WHERE idEtat = 'CR' order by fichefrais.mois desc ";
 		$res = PdoGsb::$monPdo->query($req);
@@ -324,6 +334,13 @@ class PdoGsb{
 		}
 		return $lesMois;
 	}
+        
+/**
+ * Retourne les visiteurs pour lesquel un visiteur a une fiche de frais a VALIDER en fonctione du MOIS selectionné
+ 
+ * @param leMois
+ * @return un tableau associatif des visiteurs correspondant à la requete
+*/
         
         public function getToutesLesFichesDisponiblesComptable($leMois){
 		$req = "SELECT id as visiteur,nom as nom,prenom as prenom FROM visiteur JOIN fichefrais WHERE id = idVisiteur AND mois='$leMois' and idEtat = 'CR' ";
@@ -361,7 +378,14 @@ class PdoGsb{
 		$LaLigne = $res->fetch();
 		return $LaLigne;
 	}
-        
+
+ /**
+ * Modifier le statut d'une fiche de frais en VALIDE
+ 
+ * @param $idVisiteur 
+ * @param $numAnnee
+ * @param $numMois
+*/	
         public function Valider($idVisiteur, $numAnnee, $numMois){
                 $req = "update fichefrais set idEtat = 'VA' where mois=$numAnnee$numMois and idVisiteur='$idVisiteur' ";
 		PdoGsb::$monPdo->exec($req);
