@@ -43,7 +43,7 @@
                 <th class='statut'>Supprimer</th>
                 <th class='statut'>Reporter</th>
              </tr>
-             <form action="index.php?uc=etatFrais&action=modifierStatut" method="post">
+             <form action="index.php?uc=etatFrais&action=modifierHorsForfait" method="post">
         <?php
            $i = 0;
           foreach ( $lesFraisHorsForfait as $unFraisHorsForfait ) 
@@ -55,7 +55,7 @@
                         $numAnnee =substr( $date,6,4);
                         $numMois =substr( $date,3,2);  
                         $numDay =substr( $date,0,2);
-                        $choixReport[$i][0]=$idFrais;
+                        $idTable[$i]=$idFrais;
 		?>
              <tr>
                 <td><?php echo $date ?></td>
@@ -65,7 +65,7 @@
                                 echo '<input type="checkbox" name="choix[]">';
                             } ?></td>
                 <td><?php if($_SESSION["visiteur"]==false){?>
-                                <input type='date' name='choixReport[<?php echo $i; ?>][1]' maxlength='10' value='<?php echo $numAnnee; ?>-<?php echo $numMois; ?>-<?php echo $numDay; ?>' >
+                                <input type='date' name='idTable[<?php echo $i; ?>]' maxlength='10' value='<?php echo $numAnnee; ?>-<?php echo $numMois; ?>-<?php echo $numDay; ?>' >
                             <?php } ?></td>
              </tr>
         <?php $i++;
@@ -73,16 +73,12 @@
 		?>
              <tr><td></td><td></td><td></td>
                 <td>            
-                <form action="" method="post">
                 <input type="hidden" name="leMois" value="<?php echo($leMois); ?>">
                 <input type="hidden" name="leVisiteur" value="<?php echo($leVisiteur); ?>">
+                <input type="hidden" name="idTable" value="<?php echo($idTable); ?>">
                 <input type="submit" value="Supprimer" size="4" name="statut"> <!-- On envoie le mois et l'ID visiteur correspondant a la selection du comptable -->
-                </form>
                  </td>
                 <td>            
-                <form action="index.php?uc=etatFrais&action=reporterMajFraisHorsForfaitComptable" method="post">
-                <input type="hidden" name="leMois" value="<?php echo($leMois); ?>">
-                <input type="hidden" name="leVisiteur" value="<?php echo($leVisiteur); ?>">
                 <input type="submit" value="Modifier" size="4" name="statut"> <!-- On envoie le mois et l'ID visiteur correspondant a la selection du comptable -->
                 </form>
                  </td>
