@@ -17,9 +17,9 @@
 
 class PdoGsb{   		
       	private static $serveur='mysql:host=localhost';
-      	private static $bdd='dbname= ymarivint';   		
-      	private static $user='ymarivint' ;    		
-      	private static $mdp='Iegie1ae' ;	
+      	private static $bdd='dbname=pthan';   		
+      	private static $user='pthan' ;    		
+      	private static $mdp='Ti8eitho' ;	
 		private static $monPdo;
 		private static $monPdoGsb=null;
 /**
@@ -317,7 +317,7 @@ class PdoGsb{
  * @return un tableau associatif des mois correspondant à la requete
 */
         public function getToutLesMoisDisponiblesComptable(){
-		$req = "SELECT fichefrais.mois as mois FROM fichefrais WHERE idEtat = 'CR' order by fichefrais.mois desc ";
+		$req = "SELECT fichefrais.mois as mois FROM fichefrais WHERE idEtat = 'CL' order by fichefrais.mois desc ";
 		$res = PdoGsb::$monPdo->query($req);
 		$lesMois =array();
 		$laLigne = $res->fetch();
@@ -343,7 +343,7 @@ class PdoGsb{
 */
         
         public function getToutesLesFichesDisponiblesComptable($leMois){
-		$req = "SELECT id as visiteur,nom as nom,prenom as prenom FROM visiteur JOIN fichefrais WHERE id = idVisiteur AND mois='$leMois' and idEtat = 'CR' ";
+		$req = "SELECT id as visiteur,nom as nom,prenom as prenom FROM visiteur JOIN fichefrais WHERE id = idVisiteur AND mois='$leMois' and idEtat = 'CL' ";
 		$res = PdoGsb::$monPdo->query($req);
 		$lesVisiteurs =array();
 		$laLigne = $res->fetch();
