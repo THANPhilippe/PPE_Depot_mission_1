@@ -62,7 +62,7 @@ switch($action){
 		break;
 	}
         
-        case 'supprimerFraisComptable':{
+        case 'refuserFraisComptable':{
             $idFrais = $_REQUEST['idFrais'];
 	    $pdo->supprimerFraisHorsForfait($idFrais); //On refuse le frais selectionné
             //Première liste déroulante

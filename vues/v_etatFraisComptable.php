@@ -42,7 +42,7 @@
                 <th class='montant'>Montant</th>  
                 <?php if($_SESSION["visiteur"]==false){?> 
                 <th class='statut'>Reporter</th>
-                <th class='statut'>Supprimer</th>
+                <th class='statut'>Refuser</th>
                 <?php } ?>
              </tr>
             
@@ -70,8 +70,8 @@
                 
                 <td>
                 <?php if($_SESSION["visiteur"]==false){?>
-                    <a href="index.php?uc=gererFrais&action=supprimerFraisComptable&idFrais=<?php echo $idFrais ?>&leMois=<?php echo $leMois ?>&leVisiteur=<?php echo $leVisiteur ?>" 
-                    accesskey=""onclick="return confirm('Voulez-vous vraiment supprimer ce frais?');">Supprimer ce frais</a>
+                    <a href="index.php?uc=gererFrais&action=refuserFraisComptable&idFrais=<?php echo $idFrais ?>&leMois=<?php echo $leMois ?>&leVisiteur=<?php echo $leVisiteur ?>" 
+                    accesskey=""onclick="return confirm('Voulez-vous vraiment refuser ce frais?');">Refuser ce frais</a>
                  <?php } ?> 
                 </td>
                 
