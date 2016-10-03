@@ -65,6 +65,7 @@
                 
                 <td><?php if($_SESSION["visiteur"]==false){?>
                 <input type='date' name='' maxlength='10' value='<?php echo $numAnnee; ?>-<?php echo $numMois; ?>-<?php echo $numDay; ?>' >
+                <input type="submit" value="Reporter" name="reporter">
                 <?php } ?></td>
                 
                 <td>
