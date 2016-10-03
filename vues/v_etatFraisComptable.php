@@ -40,6 +40,10 @@
                 <th class="date">Date</th>
                 <th class="libelle">Libellé</th>
                 <th class='montant'>Montant</th>  
+                <?php if($_SESSION["visiteur"]==false){?> 
+                <th class='statut'>Reporter</th>
+                <th class='statut'>Supprimer</th>
+                <?php } ?>
              </tr>
             
         <?php
@@ -59,6 +63,17 @@
                 <td><?php echo $libelle ?></td>
                 <td><?php echo $montant ?></td>
                 
+                <td><?php if($_SESSION["visiteur"]==false){?>
+                <input type='date' name='' maxlength='10' value='<?php echo $numAnnee; ?>-<?php echo $numMois; ?>-<?php echo $numDay; ?>' >
+                <input type="submit" value="Reporter" name="reporter">
+                <?php } ?></td>
+                
+                <td>
+                <?php if($_SESSION["visiteur"]==false){?>
+                    <a href="index.php?uc=gererFrais&action=supprimerFraisComptable&idFrais=<?php echo $idFrais ?>&leMois=<?php echo $leMois ?>&leVisiteur=<?php echo $leVisiteur ?>" 
+                    accesskey=""onclick="return confirm('Voulez-vous vraiment supprimer ce frais?');">Supprimer ce frais</a>
+                 <?php } ?> 
+                </td>
                 
                
              </tr>

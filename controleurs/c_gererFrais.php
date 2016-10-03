@@ -87,7 +87,7 @@ switch($action){
 		$nbJustificatifs = $lesInfosFicheFrais['nbJustificatifs'];
 		$dateModif =  $lesInfosFicheFrais['dateModif'];
 		$dateModif =  dateAnglaisVersFrancais($dateModif);
-		include("vues/v_etatFrais.php");
+		include("vues/v_etatFraisComptable.php");
             //Affichage de la modification possible d'un frais forfait
                 include("vues/v_listeFraisForfaitComptable.php");
             break;
