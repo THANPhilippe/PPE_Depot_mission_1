@@ -102,7 +102,6 @@ switch($action){
            
         
         case 'validerMajFraisForfaitComptable':{ 
-            if(isset($_POST['$leMois'])&&isset($_POST['$leVisiteur'])){
             // On affiche la meme selection qu'auparavant, avec les données modifiées
             //Première liste déroulante
             	$lesMois=$pdo->getToutLesMoisDisponiblesComptable();
@@ -137,7 +136,6 @@ switch($action){
 		include("vues/v_etatFrais.php");
             //Affichage de la modification d'un frais forfait
                 include("vues/v_listeFraisForfaitComptable.php");
-            }
 	  break;
 	}
 }
