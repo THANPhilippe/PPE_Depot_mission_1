@@ -18,8 +18,8 @@
 class PdoGsb{   		
       	private static $serveur='mysql:host=localhost';
       	private static $bdd='dbname=pthan';   		
-      	private static $user='root' ;    		
-      	private static $mdp='' ;	
+      	private static $user='pthan' ;    		
+      	private static $mdp='Ti8eitho' ;	
 		private static $monPdo;
 		private static $monPdoGsb=null;
 /**
@@ -273,8 +273,11 @@ class PdoGsb{
  * @param $idFrais 
 */
 	public function supprimerFraisHorsForfait($idFrais){
-		$req = "delete from lignefraishorsforfait where lignefraishorsforfait.id =$idFrais ";
-		PdoGsb::$monPdo->exec($req);
+		$req = "select libelle from lignefraishorsforfait where lignefraishorsforfait.id =$idFrais ";
+		$q = PdoGsb::$monPdo->query($req);
+                $libelle = $q->fetch()[0];
+                $req = "update lignefraishorsforfait set libelle= 'REFUSE : $libelle' where lignefraishorsforfait.id =$idFrais ";
+                PdoGsb::$monPdo->exec($req);
 	}
 /**
  * Retourne les mois pour lesquel un visiteur a une fiche de frais
