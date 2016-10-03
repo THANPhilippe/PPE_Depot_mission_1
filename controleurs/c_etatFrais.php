@@ -9,9 +9,9 @@ $idVisiteur = $_SESSION['idVisiteur'];
 switch($action){
 	case 'selectionnerMois':{
 		$lesMois=$pdo->getLesMoisDisponibles($idVisiteur);
-		// Afin de sélectionner par défaut le dernier mois dans la zone de liste
-		// on demande toutes les clés, et on prend la première,
-		// les mois étant triés décroissants
+		// Afin de se�lectionner par defaut le dernier mois dans la zone de liste
+		// on demande toutes les cles, et on prend la premiere,
+		// les mois datant tries decroissants
 		$lesCles = array_keys( $lesMois );
 		$moisASelectionner = $lesCles[0];
 		include("vues/v_listeMois.php");
@@ -37,9 +37,9 @@ switch($action){
 	}
         
         case 'selectionnerMoisComptable':{
-		$lesMois=$pdo->getToutLesMoisDisponiblesComptable();
-		$lesCles = array_keys( $lesMois ); //
-		$moisASelectionner = $lesCles[0]; //Pour metre le premier en selection de base
+		$lesMois=$pdo->getToutLesMoisDisponiblesComptable();//Tous les mois a valider
+		$lesCles = array_keys( $lesMois ); 
+		$moisASelectionner = $lesCles[0]; //Pour mettre le premier mois en selection de base
 		include("vues/v_listeMois.php");
 		break;
 	}
@@ -50,7 +50,7 @@ switch($action){
 		$moisASelectionner = $leMois ; //Pour metre le mois selectionn� en selection de base
                 include("vues/v_listeMois.php");
             //Deuxieme liste deroulante
-		$lesVisiteurs=$pdo->getToutesLesFichesDisponiblesComptable($leMois); 
+		$lesVisiteurs=$pdo->getToutesLesFichesDisponiblesComptable($leMois);//Les visiteurs du mois avec une fiche a valider
 		include("vues/v_listeVisiteur.php");
             }
 		break;
@@ -115,11 +115,11 @@ switch($action){
 		include("vues/v_listeVisiteur.php");
             //Affichage de la fiche visiteur pour le mois
                 $lesFrais = $_POST['lesFrais'];
-                if(lesQteFraisValides($lesFrais)){
+                if(lesQteFraisValides($lesFrais)){ // Pour v�rifier si les valeurs du tableau sont des entiers
 	  	 	$pdo->majFraisForfait($leVisiteur,$leMois,$lesFrais);
 		}
 		else{
-			ajouterErreur("Les valeurs des frais doivent être numériques");
+			ajouterErreur("Les valeurs des frais doivent etre numeriques");
 			include("vues/v_erreurs.php");
 		}
                 

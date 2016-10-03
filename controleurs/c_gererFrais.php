@@ -64,7 +64,7 @@ switch($action){
         
         case 'supprimerFraisComptable':{
             $idFrais = $_REQUEST['idFrais'];
-	    $pdo->supprimerFraisHorsForfait($idFrais);
+	    $pdo->supprimerFraisHorsForfait($idFrais); //On refuse le frais selectionné
             //Première liste déroulante
             	$lesMois=$pdo->getToutLesMoisDisponiblesComptable();
                 $leMois = $_GET['leMois'];//On recupère la valeur du précédent formulaire
