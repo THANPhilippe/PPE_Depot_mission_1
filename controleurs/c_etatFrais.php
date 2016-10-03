@@ -92,7 +92,7 @@ switch($action){
                 $numMois =substr( $leMois,4,2);
                 $pdo->Valider($idVisiteur,$numAnnee,$numMois);
                 $infosVisiteur = $pdo->getInfosNomPrenom($idVisiteur);
-                $nom =  $infosVisiteur['nom'];
+                $nom =  $infosVisiteur['nom']; //On recupère le nom et prenom de la fonction ci-dessus pour un affichage dans la vue
                 $prenom = $infosVisiteur['prenom'];
             }
             include("vues/v_etatFraisValidation.php");
