@@ -17,9 +17,9 @@
 
 class PdoGsb{   		
       	private static $serveur='mysql:host=localhost';
-      	private static $bdd='dbname=pthan';   		
-      	private static $user='pthan' ;    		
-      	private static $mdp='Ti8eitho' ;	
+      	private static $bdd='dbname= ymarivint';   		
+      	private static $user='ymarivint' ;    		
+      	private static $mdp='Iegie1ae' ;	
 		private static $monPdo;
 		private static $monPdoGsb=null;
 /**
@@ -68,7 +68,7 @@ class PdoGsb{
 */
         public function getInfosNomPrenom($idVisiteur){
 		$req = "SELECT nom as nom,prenom as prenom FROM visiteur WHERE id = '$idVisiteur' ";
-		$rs = PdoGsb::$monPdo->query($req);
+		$rs = PdoGsb::$monPdo->query($req); //test
 		$ligne = $rs->fetch();
 		return $ligne;
 	}
@@ -327,8 +327,8 @@ class PdoGsb{
 			$numMois =substr( $mois,4,2);
 			$lesMois["$mois"]=array(
 		     "mois"=>"$mois",
-		    "numAnnee"  => "$numAnnee",
-			"numMois"  => "$numMois"
+		     "numAnnee"  => "$numAnnee",
+                     "numMois"  => "$numMois"
              );
 			$laLigne = $res->fetch(); 		
 		}
