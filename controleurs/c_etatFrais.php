@@ -10,7 +10,7 @@ if($_SESSION["visiteur"]==true){
 $idVisiteur = $_SESSION['idVisiteur'];
 switch($action){
     	case 'imprimerPDF':{
-                $mois = $_REQUEST['mois'];
+                $mois=$_REQUEST['mois'];
                 $lesFraisHorsForfait = $pdo->FraisHorsForfaitPDF($idVisiteur,$mois);
                 $lesFraisForfait = $pdo->FraisForfaitPDF($idVisiteur,$mois);
                 $nomVisiteur = $pdo->getNomPrenomVisiteur($idVisiteur);

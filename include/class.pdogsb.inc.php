@@ -273,7 +273,7 @@ class PdoGsb{
                 PdoGsb::$monPdo->exec($req);
         }
 /**
- * Supprime le frais hors forfait dont l'id est passÃ© en argument
+ * Supprime le frais hors forfait dont l'id est passé en argument
  
  * @param $idFrais 
 */
