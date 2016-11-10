@@ -17,9 +17,9 @@
 
 class PdoGsb{   		
       	private static $serveur='mysql:host=localhost';
-      	private static $bdd='dbname= ymarivint';   		
-      	private static $user='ymarivint' ;    		
-      	private static $mdp='Iegie1ae' ;	
+      	private static $bdd='dbname=pthan';   		
+      	private static $user='pthan' ;    		
+      	private static $mdp='Ti8eitho' ;	
 		private static $monPdo;
 		private static $monPdoGsb=null;
 /**
@@ -404,6 +404,107 @@ class PdoGsb{
 		$req = "update ficheFrais set idEtat = '$etat', dateModif = now() 
 		where fichefrais.idvisiteur ='$idVisiteur' and fichefrais.mois = '$mois'";
 		PdoGsb::$monPdo->exec($req);
+	}
+       
+ /**
+  * Récupère les informations nécessaire du frais forfait du visiteur pour la création du PDF
+  * @param type $idVisiteur
+  * @param type $mois
+  * @return type
+  */
+        
+        public function FraisForfaitPDF($idVisiteur, $mois){
+                $req = "select distinct fraisforfait.libelle, lignefraisforfait.quantite,fraisforfait.montant from lignefraisforfait join fraisforfait on lignefraisforfait.idFraisForfait=fraisforfait.id where idVisiteur='$idVisiteur' and mois='$mois'";
+                $res = PdoGsb::$monPdo->query($req);
+		$lesLignes = $res->fetchAll();
+		return $lesLignes; 
+	}
+        
+ /**
+  * Récupère les informations nécessaire du frais hors forfait du visiteur pour la création du PDF
+  * @param type $idVisiteur
+  * @param type $mois
+  * @return type
+  */
+        
+        public function FraisHorsForfaitPDF($idVisiteur, $mois){
+                $req = "select lignefraishorsforfait.date, lignefraishorsforfait.montant,lignefraishorsforfait.libelle from lignefraishorsforfait where idVisiteur='$idVisiteur' and mois='$mois'";
+                $res = PdoGsb::$monPdo->query($req);
+		$lesLignes = $res->fetchAll();
+		return $lesLignes; 
+	}
+        
+/**
+ * Création du PDF de la fiche de frais du mois sélectionné
+ * @param type $lesFraisForfait
+ * @param type $lesFraisHorsForfait
+ * @param type $mois
+ * @param type $nomVisiteur
+ */  
+        
+        public function creerPDF($lesFraisForfait, $lesFraisHorsForfait, $mois, $nomVisiteur){
+                require('fpdf/fpdf.php');
+                ob_get_clean();
+                $annee=substr($mois, 0,-2);
+                $lemois=substr($mois, -2);
+                $pdf=new FPDF();
+                $ColonneF = array('Libelle', 'Quantite', 'Montant');
+                $ColonneHF = array('Libelle', 'Date', 'Montant');
+                $pdf->AddPage();
+                $pdf->SetFont('Arial','B',16);
+                $pdf->Text(10,100,"Fiche de frais du mois: ".$lemois."-".$annee);
+                $pdf->Ln();
+                foreach($nomVisiteur as $leVisiteur){
+                    $nom = $leVisiteur['nom'];
+                    $prenom = $leVisiteur['prenom'];
+                }
+                
+                $pdf->Text(10,110,"Visiteur: ".$nom." ".$prenom);
+                
+                foreach($ColonneF as $col){
+                    $pdf->Cell(60,7,$col,1);
+                }
+                $pdf->Ln();
+                foreach($lesFraisForfait as $unFrais){
+                    $libelle = $unFrais['libelle'];
+                    $quantite = $unFrais['quantite'];
+                    $montant = $unFrais['montant'];
+                    $pdf->Cell(60,6,utf8_decode($libelle),1);
+                    $pdf->Cell(60,6,utf8_decode($quantite),1);
+                    $pdf->Cell(60,6,utf8_decode($montant),1);
+                    $pdf->Ln();
+                    }
+                    $pdf->Ln();
+                
+                 foreach($ColonneHF as $col){
+                    $pdf->Cell(60,7,$col,1);
+                }
+                $pdf->Ln();
+                foreach($lesFraisHorsForfait as $unFraisHF){
+                    $libelle = $unFraisHF['libelle'];
+                    $date = $unFraisHF['date'];
+                    $montant = $unFraisHF['montant'];
+                    $pdf->Cell(60,6,utf8_decode($libelle),1);
+                    $pdf->Cell(60,6,utf8_decode($date),1);
+                    $pdf->Cell(60,6,utf8_decode($montant),1);
+                    $pdf->Ln();
+                    }
+                    $pdf->Ln();   
+                    
+                $pdf->Output();
+        }
+ 
+/**
+ * Récupération du nom+prénom du visiteur
+ * @param type $idVisiteur
+ * @return type
+ */
+
+        public function getNomPrenomVisiteur($idVisiteur){
+                $req = "select nom, prenom from visiteur where id='$idVisiteur'";
+                $res = PdoGsb::$monPdo->query($req);
+		$lesLignes = $res->fetchAll();
+		return $lesLignes; 
 	}
 }
 ?>

@@ -1,12 +1,22 @@
 ï»¿<?php
+$action = $_REQUEST['action'];
+if($action!= 'imprimerPDF'){
 if($_SESSION["visiteur"]==true){
      include("vues/v_sommaire.php");
 }else{
      include("vues/v_comptable.php");
 }
-$action = $_REQUEST['action'];
+}
 $idVisiteur = $_SESSION['idVisiteur'];
 switch($action){
+    	case 'imprimerPDF':{
+                $mois = $_REQUEST['mois'];
+                $lesFraisHorsForfait = $pdo->FraisHorsForfaitPDF($idVisiteur,$mois);
+                $lesFraisForfait = $pdo->FraisForfaitPDF($idVisiteur,$mois);
+                $nomVisiteur = $pdo->getNomPrenomVisiteur($idVisiteur);
+                include("vues/v_pdf.php");
+		break;
+	}
 	case 'selectionnerMois':{
 		$lesMois=$pdo->getLesMoisDisponibles($idVisiteur);
 		// Afin de se©lectionner par defaut le dernier mois dans la zone de liste
@@ -136,7 +146,7 @@ switch($action){
 		include("vues/v_etatFraisComptable.php");
             //Affichage de la modification d'un frais forfait
                 include("vues/v_listeFraisForfaitComptable.php");
-	  break;
+	  break; 
 	}
 }
 ?>

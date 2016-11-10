@@ -65,9 +65,8 @@
         <?php $i++;
           }
 		?>
-
     </table>
-          
+          <center>Imprimer le PDF: <a href="index.php?uc=pdf&action=imprimerPDF&mois=<?php echo $numAnnee.$numMois ?>"><img src="images/iconePDF.png"></a></center>
   </div>
         <?php if($_SESSION["visiteur"]==false){ ?>
             <div class="piedForm">
