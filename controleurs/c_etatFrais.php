@@ -118,7 +118,7 @@ switch($action){
                 $leMois = $_POST['leMois'];//On recupère la valeur du précédent formulaire
 		$moisASelectionner = $leMois; //Pour metre le mois selectionné en selection de base
                 include("vues/v_listeMois.php");
-            //Deuxieme liste deroulante
+            //Deuxieme liste déroulante
 		$lesVisiteurs=$pdo->getToutesLesFichesDisponiblesComptable($leMois);
                 $leVisiteur = $_POST['leVisiteur'];
                 $visiteurASelectionner = $leVisiteur; //Pour metre le visiteur selectionné en selection de base

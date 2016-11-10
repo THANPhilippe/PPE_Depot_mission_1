@@ -440,7 +440,7 @@ class PdoGsb{
  * @param type $lesFraisHorsForfait
  * @param type $mois
  * @param type $nomVisiteur
- */  
+ */
         
         public function creerPDF($lesFraisForfait, $lesFraisHorsForfait, $mois, $nomVisiteur){
                 require('fpdf/fpdf.php');
