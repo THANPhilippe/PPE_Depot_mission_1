@@ -31,7 +31,7 @@
                                           
     </table>
       <form action="index.php?uc=gererFrais&action=validerCreationFrais" method="post">
-      <div class="corpsForm">
+      <div class="encadre">
          
           <fieldset>
             <legend>Nouvel élément hors forfait

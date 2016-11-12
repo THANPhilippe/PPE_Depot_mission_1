@@ -32,7 +32,7 @@ switch($action){
 			$prenom = $comptable['prenom'];
                         $type = "COMPTABLE";
 			connecter($id,$nom,$prenom);
-			include("vues/v_comptable.php");
+			include("vues/v_sommaireComptable.php");
                         include("vues/v_accueilConnexion.php");
                 }
                 else{

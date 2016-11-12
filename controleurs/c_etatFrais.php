@@ -4,7 +4,7 @@ if($action!= 'imprimerPDF'){
 if($_SESSION["visiteur"]==true){
      include("vues/v_sommaire.php");
 }else{
-     include("vues/v_comptable.php");
+     include("vues/v_sommaireComptable.php");
 }
 }
 $idVisiteur = $_SESSION['idVisiteur'];
@@ -100,7 +100,7 @@ switch($action){
                 $idVisiteur = $_POST['leVisiteur'];
                 $numAnnee =substr( $leMois,0,4);
                 $numMois =substr( $leMois,4,2);
-                $pdo->Valider($idVisiteur,$numAnnee,$numMois);
+                    $pdo->ValiderFiche($idVisiteur,$numAnnee,$numMois);
                 $infosVisiteur = $pdo->getInfosNomPrenom($idVisiteur);
                 $nom =  $infosVisiteur['nom']; //On recupère le nom et prenom de la fonction ci-dessus pour un affichage dans la vue
                 $prenom = $infosVisiteur['prenom'];

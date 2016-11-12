@@ -2,7 +2,7 @@
       <h2>Renseigner ma fiche de frais du mois <?php echo $numMois."-".$numAnnee ?></h2>
          
       <form method="POST"  action="index.php?uc=gererFrais&action=validerMajFraisForfait">
-      <div class="corpsForm">
+      <div class="encadre">
           
           <fieldset>
             <legend>Eléments forfaitisés

@@ -8,7 +8,7 @@
                              { 
                                  echo "'index.php?uc=etatFrais&action=selectionnerMoisFicheComptable'";       
                              }?> method="post">
-      <div class="corpsForm">
+      <div class="encadre">
          
       <p>
 	 
@@ -45,4 +45,4 @@
       </div>
         
       </form>
-      
+     

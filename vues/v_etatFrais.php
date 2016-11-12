@@ -66,16 +66,7 @@
           }
     ?>
     </table>
-          <center>Imprimer le PDF:<a href="index.php?uc=pdf&action=imprimerPDF&mois=<?php echo $numAnnee.$numMois ?>"><img src="images/iconePDF.png"></a></center>
   </div>
-        <?php if($_SESSION["visiteur"]==false){ ?>
-            <div class="piedForm">
-            <p>
-                <form action="index.php?uc=etatFrais&action=validerFrais" method="post">
-                <input type="hidden" name="leMois" value="<?php echo($leMois); ?>">
-                <input type="hidden" name="leVisiteur" value="<?php echo($leVisiteur); ?>">
-                <input type="submit" value="Valider la fiche" size="20" name="valider"> <!-- On envoie le mois et l'ID visiteur correspondant a la selection du comptable -->
-                </form>
-            </p> 
-            </div>  
-        <?php }?>
+      <div class="piedForm">
+        <p>Imprimer le PDF:<a href="index.php?uc=pdf&action=imprimerPDF&mois=<?php echo $numAnnee.$numMois ?>"><img style="float:none;" src="images/iconePDF.png"></a></p>
+      </div>

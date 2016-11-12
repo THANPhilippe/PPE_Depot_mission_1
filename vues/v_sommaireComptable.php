@@ -15,6 +15,9 @@
            <li class="smenu">
               <a href="index.php?uc=etatFrais&action=selectionnerMoisComptable" title="Valide fiche de frais">Valide fiche frais</a>
            </li>
+           <li class="smenu">
+              <a href="index.php?uc=suiviPaiement&action=selectionnerFiche" title="Consultation du paiement des fiches">Suivi de paiement</a>
+           </li>
  	   <li class="smenu">
               <a href="index.php?uc=connexion&action=deconnexion" title="Se déconnecter">Deconnexion</a>
            </li>

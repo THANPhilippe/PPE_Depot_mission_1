@@ -18,8 +18,8 @@
 class PdoGsb{   		
       	private static $serveur='mysql:host=localhost';
       	private static $bdd='dbname=pthan';   		
-      	private static $user='pthan' ;    		
-      	private static $mdp='Ti8eitho' ;	
+      	private static $user='root' ;    		
+      	private static $mdp='' ;	
 		private static $monPdo;
 		private static $monPdoGsb=null;
 /**
@@ -311,6 +311,22 @@ class PdoGsb{
 	}
         
 /**
+ * Retourne les mois pour lesquel un visiteur a une fiche de frais
+ 
+ * @param $idVisiteur 
+ * @return un tableau associatif de clé un mois -aaaamm- et de valeurs l'année et le mois correspondant 
+*/
+	public function getLesFichesValidePaiement(){
+		$req = "select * from  fichefrais where fichefrais.idetat='VA' 
+		order by fichefrais.mois desc ";
+		$res = PdoGsb::$monPdo->query($req);
+		$lesFiches = $res->fetchAll();
+		return $lesFiches;
+	}
+        
+        
+        
+/**
  * Retourne les mois pour lesquel un visiteur a une fiche de frais a VALIDER
  
  * @param aucun param�tre
@@ -386,8 +402,19 @@ class PdoGsb{
  * @param $numAnnee
  * @param $numMois
 */	
-        public function Valider($idVisiteur, $numAnnee, $numMois){
+        public function ValiderFiche($idVisiteur, $numAnnee, $numMois){
                 $req = "update fichefrais set idEtat = 'VA' where mois=$numAnnee$numMois and idVisiteur='$idVisiteur' ";
+		PdoGsb::$monPdo->exec($req);
+	}
+ /**
+ * Modifier le statut d'une fiche de frais en VALIDE
+ 
+ * @param $idVisiteur 
+ * @param $numAnnee
+ * @param $numMois
+*/	
+        public function miseEnPaiementFiche($idVisiteur, $numAnnee, $numMois){
+                $req = "update fichefrais set idEtat = 'MP' where mois=$numAnnee$numMois and idVisiteur='$idVisiteur' ";
 		PdoGsb::$monPdo->exec($req);
 	}
         

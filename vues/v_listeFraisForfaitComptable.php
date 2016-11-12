@@ -3,7 +3,7 @@
       <h2>Modification de la liste de frais du <?php echo $numMois."-".$numAnnee ?></h2>
          
       <form method="POST"  action="index.php?uc=etatFrais&action=validerMajFraisForfaitComptable">
-      <div class="corpsForm">
+      <div class="encadre">
           <fieldset>
             <legend>Eléments forfaitisés
             </legend>

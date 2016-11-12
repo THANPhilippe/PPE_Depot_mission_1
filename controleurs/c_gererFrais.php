@@ -2,7 +2,7 @@
 if($_SESSION["visiteur"]==true){
      include("vues/v_sommaire.php");
 }else{
-     include("vues/v_comptable.php");
+     include("vues/v_sommaireComptable.php");
 }
 $idVisiteur = $_SESSION['idVisiteur'];
 $mois = getMois(date("d/m/Y"));

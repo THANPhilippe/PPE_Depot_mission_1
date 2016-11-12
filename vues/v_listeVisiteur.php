@@ -1,7 +1,7 @@
 ﻿   <?php if($_SESSION["comptable"]==true && isset($lesVisiteurs)){?>
       <h3>Liste des fiches frais a valider pour les visiteurs du mois : <?php echo (substr( $leMois,4,2));echo ' / '; echo(substr( $leMois,0,4)); ?> </h3>
       <form action="index.php?uc=etatFrais&action=voirEtatFraisComptable" method="post">
-      <div class="corpsForm">
+      <div class="encadre">
          
       <p>
 	 
