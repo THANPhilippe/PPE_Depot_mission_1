@@ -311,13 +311,12 @@ class PdoGsb{
 	}
         
 /**
- * Retourne les mois pour lesquel un visiteur a une fiche de frais
+ * Retourne les fiches pour lesquel l'etat est VA
  
- * @param $idVisiteur 
- * @return un tableau associatif de clé un mois -aaaamm- et de valeurs l'année et le mois correspondant 
+ * @return lesFiches
 */
 	public function getLesFichesValidePaiement(){
-		$req = "select * from  fichefrais where fichefrais.idetat='VA' 
+		$req = "select nom,prenom,mois,idVisiteur from fichefrais join visiteur on visiteur.id=fichefrais.idVisiteur where fichefrais.idetat='VA' 
 		order by fichefrais.mois desc ";
 		$res = PdoGsb::$monPdo->query($req);
 		$lesFiches = $res->fetchAll();

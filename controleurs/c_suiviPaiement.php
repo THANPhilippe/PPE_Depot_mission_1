@@ -7,27 +7,31 @@ if($_SESSION["visiteur"]==true){
      include("vues/v_sommaireComptable.php");
 }
 }
-$idVisiteur = $_SESSION['idVisiteur'];
 switch($action){
 	case 'selectionnerFiche':{
 		$lesFiches=$pdo->getLesFichesValidePaiement();
 		// Afin de se©lectionner par defaut le dernier mois dans la zone de liste
 		// on demande toutes les cles, et on prend la premiere,
 		// les mois datant tries decroissants
+                if(!empty($lesFiches)){
 		$lesCles = array_keys( $lesFiches );
 		$ficheASelectionner = $lesCles[0];
+                 }
 		include("vues/v_listeMoisPaiement.php");
 		break;
 	}
         	case 'voirEtatFiche':{
 		$leMois = substr( $_REQUEST['lstFiche'],0,6);
                 $idVisiteur = substr ( $_REQUEST['lstFiche'],6); // lenght omis, le string commençant à partir de start jusqu'à la fin sera retournée.
+                $leVisiteur=$idVisiteur;
 		$lesFiches=$pdo->getLesFichesValidePaiement();
 		$ficheASelectionner = $leMois;
 		include("vues/v_listeMoisPaiement.php");
 		$lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($idVisiteur,$leMois);
 		$lesFraisForfait= $pdo->getLesFraisForfait($idVisiteur,$leMois);
 		$lesInfosFicheFrais = $pdo->getLesInfosFicheFrais($idVisiteur,$leMois);
+                $numAnnee =substr( $leMois,0,4);
+		$numMois =substr( $leMois,4,2);
 		$libEtat = $lesInfosFicheFrais['libEtat'];
 		$montantValide = $lesInfosFicheFrais['montantValide'];
 		$nbJustificatifs = $lesInfosFicheFrais['nbJustificatifs'];
@@ -51,6 +55,5 @@ switch($action){
                 include("vues/v_etatFraisPaiementValidation.php");
                 break;
         }
-      
 }
 ?>

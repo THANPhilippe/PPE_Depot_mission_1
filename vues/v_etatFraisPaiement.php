@@ -71,7 +71,7 @@
             <p>
                 <form action="index.php?uc=suiviPaiement&action=miseEnPaiementFiche" method="post">
                 <input type="hidden" name="leMois" value="<?php echo($leMois); ?>">
-                <input type="hidden" name="idVisiteur" value="<?php echo($idVisiteur); ?>">
+                <input type="hidden" name="idVisiteur" value="<?php echo($leVisiteur); ?>">
                 <input type="submit" value="Mise en paiement" size="20" name="valider"> <!-- On envoie le mois et l'ID visiteur correspondant a la selection du comptable -->
                 </form>
             </p> 
