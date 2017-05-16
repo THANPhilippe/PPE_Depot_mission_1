@@ -15,13 +15,14 @@
  * @link       http://www.php.net/manual/fr/book.pdo.php
  */
 
-class PdoGsb{   		
-      	private static $serveur='mysql:host=localhost';
-      	private static $bdd='dbname=pthan';   		
-      	private static $user='root' ;    		
-      	private static $mdp='' ;	
-		private static $monPdo;
-		private static $monPdoGsb=null;
+class PdoGsb{   
+        private static $serveur='mysql:host=localhost';
+      	private static $bdd='dbname= ymarivint';   		
+      	private static $user='ymarivint' ;    		
+      	private static $mdp='Iegie1ae' ;	
+	private static $monPdo;
+	private static $monPdoGsb=null;
+    
 /**
  * Constructeur privÃ©, crÃ©e l'instance de PDO qui sera sollicitÃ©e
  * pour toutes les mÃ©thodes de la classe
@@ -272,6 +273,39 @@ class PdoGsb{
                 values('$idVisiteur','$mois','$libelle','$dateFr','$montant')";
                 PdoGsb::$monPdo->exec($req);
         }
+        
+/**
+ * Supprime le frais hors forfait dont l'id est passé en argument
+ 
+ * @param $idFrais 
+*/
+	public function reporterFraisHorsForfait($idFrais){
+		$req = "select mois from lignefraishorsforfait where lignefraishorsforfait.id =$idFrais ";
+		$q = PdoGsb::$monPdo->query($req);
+                $mois = $q->fetch()[0];
+                $numAnnee =substr($mois,0,4);
+                $numMois =substr($mois,4,2);
+                $numMoisUnChiffre = substr($mois,5,1);
+                $numAnnee = intval($numAnnee);
+                $numMois = intval($numMois);
+                $numMoisUnChiffre = intval($numMoisUnChiffre);
+                $leMois=0;
+                if($numMois != 12){
+                    if($numMois >= 10){
+                        $leMois = $numMois +=1;
+                    }else{
+                        $leMois = $numMoisUnChiffre += 1;
+                    }
+                }else{
+                    $numAnnee += 1;
+                    $leMois = 01;
+                }
+                echo $req;
+                echo "<br>";
+                $req = "update lignefraishorsforfait set mois='$numAnnee$leMois' where lignefraishorsforfait.id =$idFrais ";
+                echo $req;
+                PdoGsb::$monPdo->exec($req);
+	}
 /**
  * Supprime le frais hors forfait dont l'id est passé en argument
  
@@ -467,58 +501,128 @@ class PdoGsb{
  * @param type $mois
  * @param type $nomVisiteur
  */
-        
-        public function creerPDF($lesFraisForfait, $lesFraisHorsForfait, $mois, $nomVisiteur){
+        public function creerPDF($lesFraisForfait, $lesFraisHorsForfait, $mois, $Visiteur){
                 require('fpdf/fpdf.php');
                 ob_get_clean();
                 $annee=substr($mois, 0,-2);
                 $lemois=substr($mois, -2);
                 $pdf=new FPDF();
-                $ColonneF = array('Libelle', 'Quantite', 'Montant');
-                $ColonneHF = array('Libelle', 'Date', 'Montant');
+                $ColonneF = array('Frais Forfaitaires','Quantite','Montant unitaire','Total');
+                $ColonneHF = array('Date','Libellé','Montant');
                 $pdf->AddPage();
-                $pdf->SetFont('Arial','B',16);
-                $pdf->Text(10,100,"Fiche de frais du mois: ".$lemois."-".$annee);
-                $pdf->Ln();
-                foreach($nomVisiteur as $leVisiteur){
+                $pdf->SetFont('Times','B',16);
+                $pdf->SetTextColor(0,0,0);
+                $pageWidth = 200;
+                $pageHeight = 286;
+                $margin = 10;
+                $pdf->Rect(10,50,190,210);
+                $pdf->Image("images/logo.jpg", 77, 10, 50, 36);
+                $pdf->SetDrawColor(48,69,111);
+                $pdf->SetLineWidth(0.2);
+                $pdf->Text(65,60,"ETAT DE FRAIS ENGAGES");
+                $pdf->SetFont('Times','B',12);
+                $pdf->SetTextColor(48,69,111);
+                $pdf->Text(18,80,"A retourner accompagné des justificatifs au plus tard le 10 du mois qui suit lengagement des frais");
+                foreach($Visiteur as $leVisiteur){
                     $nom = $leVisiteur['nom'];
                     $prenom = $leVisiteur['prenom'];
                 }
-                
-                $pdf->Text(10,110,"Visiteur: ".$nom." ".$prenom);
-                
-                foreach($ColonneF as $col){
-                    $pdf->Cell(60,7,$col,1);
-                }
+                $pdf->SetFont('Times','B',13);
+                $pdf->Text(18,90,"Visiteur: ");
+                $pdf->SetFont('Times','u',13);
+                $pdf->SetTextColor(0,0,0);
+                $pdf->Text(40,90,$nom." ".$prenom);
+                $pdf->SetFont('Times','B',13);
+                $pdf->SetTextColor(48,69,111);
+                $pdf->Text(18,100,"Mois: ");
+                $pdf->SetFont('Times','u',13);
+                $pdf->SetTextColor(0,0,0);
+                $pdf->Text(40,100,$lemois."-".$annee);
                 $pdf->Ln();
+                $pdf->SetFont('Times','BI',13);
+                $pdf->SetTextColor(48,69,111);
+                $pdf->SetY(120);    // indique la position du curseur en Y
+                $pdf->SetX(17);    // indique la position du curseur en X
+                $pdf->Cell(50,7,$ColonneF[0],1,0,'C');
+                $pdf->Cell(30,7,$ColonneF[1],1,0,'C');
+                $pdf->Cell(60,7,$ColonneF[2],1,0,'C');
+                $pdf->Cell(30,7,$ColonneF[3],1,0,'C');
+                $pdf->Ln();
+                $pdf->SetFont('Times','',13);
+                $pdf->SetTextColor(0,0,0);
                 foreach($lesFraisForfait as $unFrais){
+                    $pdf->SetX(17);
                     $libelle = $unFrais['libelle'];
                     $quantite = $unFrais['quantite'];
                     $montant = $unFrais['montant'];
-                    $pdf->Cell(60,6,utf8_decode($libelle),1);
-                    $pdf->Cell(60,6,utf8_decode($quantite),1);
+                    $total = $quantite * $montant;
+                    $pdf->Cell(50,6,utf8_decode($libelle),1);
+                    $pdf->Cell(30,6,utf8_decode($quantite),1);
                     $pdf->Cell(60,6,utf8_decode($montant),1);
+                    $pdf->Cell(30,6,utf8_decode($total),1);
                     $pdf->Ln();
-                    }
-                    $pdf->Ln();
-                
-                 foreach($ColonneHF as $col){
-                    $pdf->Cell(60,7,$col,1);
                 }
                 $pdf->Ln();
+                $pdf->SetFont('Times','B',13);
+                $pdf->SetTextColor(48,69,111);
+                $pdf->Text(90,170,"Autres Frais : ");
+                $pdf->SetFont('Times','BI',13);
+                $pdf->SetTextColor(48,69,111);
+                $pdf->SetY(175);   // indique la position du curseur en Y
+                $pdf->SetX(17);    // indique la position du curseur en X
+                $pdf->Cell(30,7,$ColonneHF[0],1,0,'C');
+                $pdf->Cell(110,7,$ColonneHF[1],1,0,'C');
+                $pdf->Cell(30,7,$ColonneHF[2],1,0,'C');
+                $pdf->Ln();
+                $pdf->SetFont('Times','',13);
+                $pdf->SetTextColor(0,0,0);
                 foreach($lesFraisHorsForfait as $unFraisHF){
+                    $pdf->SetX(17);
                     $libelle = $unFraisHF['libelle'];
                     $date = $unFraisHF['date'];
                     $montant = $unFraisHF['montant'];
-                    $pdf->Cell(60,6,utf8_decode($libelle),1);
-                    $pdf->Cell(60,6,utf8_decode($date),1);
-                    $pdf->Cell(60,6,utf8_decode($montant),1);
+                    $pdf->Cell(30,6,utf8_decode($date),1);
+                    $pdf->Cell(110,6,utf8_decode($libelle),1);
+                    $pdf->Cell(30,6,utf8_decode($montant),1);
                     $pdf->Ln();
                     }
-                    $pdf->Ln();   
-                    
+                $pdf->Ln();
+                $pdf->SetFont('Times','BI',13);
+                $pdf->SetTextColor(48,69,111);
+                $pdf->Text(160,270,"Signature");
                 $pdf->Output();
         }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
  
 /**
  * Récupération du nom+prénom du visiteur

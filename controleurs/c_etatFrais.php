@@ -93,24 +93,6 @@ switch($action){
                 break;
 	}
       
-        case 'validerFrais':{
-            if(!empty($_POST))
-            {
-                $leMois = $_POST['leMois'];
-                $idVisiteur = $_POST['leVisiteur'];
-                $numAnnee =substr( $leMois,0,4);
-                $numMois =substr( $leMois,4,2);
-                    $pdo->ValiderFiche($idVisiteur,$numAnnee,$numMois);
-                $infosVisiteur = $pdo->getInfosNomPrenom($idVisiteur);
-                $nom =  $infosVisiteur['nom']; //On recupère le nom et prenom de la fonction ci-dessus pour un affichage dans la vue
-                $prenom = $infosVisiteur['prenom'];
-            }
-            include("vues/v_etatFraisValidation.php");
-            break;
-        }
-        
-           
-        
         case 'validerMajFraisForfaitComptable':{ 
             // On affiche la meme selection qu'auparavant, avec les données modifiées
             //Première liste déroulante
@@ -132,7 +114,6 @@ switch($action){
 			ajouterErreur("Les valeurs des frais doivent etre numeriques");
 			include("vues/v_erreurs.php");
 		}
-                
 		$lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($leVisiteur,$leMois);
 		$lesFraisForfait= $pdo->getLesFraisForfait($leVisiteur,$leMois);
 		$lesInfosFicheFrais = $pdo->getLesInfosFicheFrais($leVisiteur,$leMois);
@@ -148,5 +129,21 @@ switch($action){
                 include("vues/v_listeFraisForfaitComptable.php");
 	  break; 
 	}
+        
+        case 'validerFrais':{
+            if(!empty($_POST))
+            {
+                $leMois = $_POST['leMois'];
+                $idVisiteur = $_POST['leVisiteur'];
+                $numAnnee =substr( $leMois,0,4);
+                $numMois =substr( $leMois,4,2);
+                $pdo->ValiderFiche($idVisiteur,$numAnnee,$numMois);
+                $infosVisiteur = $pdo->getInfosNomPrenom($idVisiteur);
+                $nom =  $infosVisiteur['nom']; //On recupère le nom et prenom de la fonction ci-dessus pour un affichage dans la vue
+                $prenom = $infosVisiteur['prenom'];
+            }
+            include("vues/v_etatFraisValidation.php");
+            break;
+        }
 }
 ?>

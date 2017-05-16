@@ -1,26 +1,21 @@
 ﻿
 <br><br><br>
-<h2>Fiche de frais du <?php echo $numMois."-".$numAnnee?> : 
-    </h2>
+<h2>Fiche de frais du <?php echo $numMois."-".$numAnnee?> : </h2>
     <div class="encadre">
-    <p>
-        Etat : <?php echo $libEtat?> depuis le <?php echo $dateModif?> <br> Montant validé : <?php echo $montantValide?>
-              
-                     
-    </p>
-  	<table class="listeLegere">
-  	   <caption>Eléments forfaitisés </caption>
+    <p>Etat : <?php echo $libEtat?> depuis le <?php echo $dateModif?> <br> Montant validé : <?php echo $montantValide?></p>
+    <table class="listeLegere">
+        <caption>Eléments forfaitisés </caption>
         <tr>
          <?php
-         foreach ( $lesFraisForfait as $unFraisForfait ) 
-		 {
-			$libelle = $unFraisForfait['libelle'];
-		?>	
-			<th> <?php echo $libelle?></th>
-		 <?php
-        }
-		?>
-		</tr>
+            foreach ( $lesFraisForfait as $unFraisForfait ) 
+           {
+               $libelle = $unFraisForfait['libelle'];
+               ?>	
+               <th> <?php echo $libelle?></th>
+               <?php
+           }
+           ?>
+	</tr>
         <tr>
         <?php
           foreach (  $lesFraisForfait as $unFraisForfait  ) 
@@ -31,59 +26,52 @@
 		 <?php
           }
 		?>
-		</tr>
+        </tr>
     </table>
-  	<table class="listeLegere">
-  	   <caption>Descriptif des éléments hors forfait -<?php echo $nbJustificatifs ?> justificatifs reçus -
-       </caption>
-             <tr>
-                <th class="date">Date</th>
-                <th class="libelle">Libellé</th>
-                <th class='montant'>Montant</th>  
-                <?php if($_SESSION["visiteur"]==false){?> 
+    <table class="listeLegere">
+        <caption>Descriptif des éléments hors forfait -<?php echo $nbJustificatifs ?> justificatifs reçus -</caption>
+        <tr>
+            <th class="date">Date</th>
+            <th class="libelle">Libellé</th>
+            <th class='montant'>Montant</th>  
+            <?php if($_SESSION["visiteur"]==false){?> 
                 <th class='statut'>Reporter</th>
                 <th class='statut'>Refuser</th>
-                <?php } ?>
-             </tr>
-            
+            <?php } ?>
+        </tr>   
         <?php
-           $i = 0;
-          foreach ( $lesFraisHorsForfait as $unFraisHorsForfait ) 
-		  {
-                        $idFrais = $unFraisHorsForfait['id'];
-			$date = $unFraisHorsForfait['date'];
-			$libelle = $unFraisHorsForfait['libelle'];
-			$montant = $unFraisHorsForfait['montant'];    
-                        $numAnnee =substr( $date,6,4);
-                        $numMois =substr( $date,3,2);  
-                        $numDay =substr( $date,0,2);
-		?>
-             <tr>
-                <td><?php echo $date ?></td>
-                <td><?php echo $libelle ?></td>
-                <td><?php echo $montant ?></td>
-                
-                <td><?php if($_SESSION["visiteur"]==false){?>
-                <input type='date' name='' maxlength='10' value='<?php echo $numAnnee; ?>-<?php echo $numMois; ?>-<?php echo $numDay; ?>' >
-                <input type="submit" value="Reporter" name="reporter">
-                <?php } ?></td>
-                
-                <td>
-                <?php if($_SESSION["visiteur"]==false){?>
-                    <a href="index.php?uc=gererFrais&action=refuserFraisComptable&idFrais=<?php echo $idFrais ?>&leMois=<?php echo $leMois ?>&leVisiteur=<?php echo $leVisiteur ?>" 
-                    accesskey=""onclick="return confirm('Voulez-vous vraiment refuser ce frais?');">Refuser ce frais</a>
-                 <?php } ?> 
-                </td>
-                
-               
-             </tr>
-        <?php $i++;
-          }
-		?>
-
+            $i = 0;
+            foreach ( $lesFraisHorsForfait as $unFraisHorsForfait ) 
+            {
+                $idFrais = $unFraisHorsForfait['id'];
+                $date = $unFraisHorsForfait['date'];
+                $libelle = $unFraisHorsForfait['libelle'];
+                $montant = $unFraisHorsForfait['montant'];    
+                $numAnnee =substr( $date,6,4);
+                $numMois =substr( $date,3,2);  
+                $numDay =substr( $date,0,2);
+                ?>
+                <tr>
+                    <td><?php echo $date ?></td>
+                    <td><?php echo $libelle ?></td>
+                    <td><?php echo $montant ?></td>
+                    <td><?php if($_SESSION["visiteur"]==false){?>
+                    <a href="index.php?uc=gererFrais&action=reporterFraisComptable&idFrais=<?php echo $idFrais ?>&leMois=<?php echo $leMois ?>&leVisiteur=<?php echo $leVisiteur ?>" 
+                        accesskey=""onclick="return confirm('Voulez-vous vraiment reporter ce frais?');">Reporter ce frais</a>
+                    <?php } ?></td>
+                    <td>
+                    <?php if($_SESSION["visiteur"]==false){?>
+                        <a href="index.php?uc=gererFrais&action=refuserFraisComptable&idFrais=<?php echo $idFrais ?>&leMois=<?php echo $leMois ?>&leVisiteur=<?php echo $leVisiteur ?>" 
+                        accesskey=""onclick="return confirm('Voulez-vous vraiment refuser ce frais?');">Refuser ce frais</a>
+                    <?php } ?> 
+                    </td>
+                </tr>
+                <?php $i++;
+            }
+            ?>
     </table>
           
-  </div>
+    </div>
         <?php if($_SESSION["visiteur"]==false){ ?>
             <div class="piedForm">
             <p>

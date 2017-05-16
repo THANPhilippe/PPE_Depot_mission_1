@@ -62,6 +62,37 @@ switch($action){
 		break;
 	}
         
+        case 'reporterFraisComptable':{
+            $idFrais = $_REQUEST['idFrais'];
+	    $pdo->reporterFraisHorsForfait($idFrais); //On reporte le frais selectionné
+            //Première liste déroulante
+            	$lesMois=$pdo->getToutLesMoisDisponiblesComptable();
+                $leMois = $_GET['leMois'];//On recupère la valeur du précédent formulaire
+		$moisASelectionner = $leMois; //Pour metre le mois selectionné en selection de base
+                include("vues/v_listeMois.php");
+            //Deuxieme liste deroulante
+		$lesVisiteurs=$pdo->getToutesLesFichesDisponiblesComptable($leMois);
+                $leVisiteur=$_GET['leVisiteur'];
+                $visiteurASelectionner = $leVisiteur; //Pour metre le visiteur selectionné en selection de base
+		include("vues/v_listeVisiteur.php");
+            //Affichage de la fiche visiteur pour le mois
+                $leVisiteur = $_GET['leVisiteur'];
+		$lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($leVisiteur,$leMois);
+		$lesFraisForfait= $pdo->getLesFraisForfait($leVisiteur,$leMois);
+		$lesInfosFicheFrais = $pdo->getLesInfosFicheFrais($leVisiteur,$leMois);
+		$numAnnee =substr( $leMois,0,4);
+		$numMois =substr( $leMois,4,2);
+		$libEtat = $lesInfosFicheFrais['libEtat'];
+		$montantValide = $lesInfosFicheFrais['montantValide'];
+		$nbJustificatifs = $lesInfosFicheFrais['nbJustificatifs'];
+		$dateModif =  $lesInfosFicheFrais['dateModif'];
+		$dateModif =  dateAnglaisVersFrancais($dateModif);
+		include("vues/v_etatFraisComptable.php");
+            //Affichage de la modification possible d'un frais forfait
+                include("vues/v_listeFraisForfaitComptable.php");
+            break;
+	}
+        
         case 'refuserFraisComptable':{
             $idFrais = $_REQUEST['idFrais'];
 	    $pdo->supprimerFraisHorsForfait($idFrais); //On refuse le frais selectionné
